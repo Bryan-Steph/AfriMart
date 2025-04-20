@@ -331,47 +331,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sample data - replace with your images and text
     const items = [
       { 
-        image: 'assets/images/a1.jpg',
+        image: 'src/assets/images/a1.jpg',
         title: 'Seth Rogen',
         subtitle: 'The Zane Lowe Interview'
       },
       {
-        image: 'assets/images/a2.jpg',
+        image: 'src/assets/images/a2.jpg',
         title: 'Vendor: Claris',
         subtitle: 'Fashion'
       },
       {
-        image: 'assets/images/a3.jpg',
+        image: 'src/assets/images/a3.jpg',
         title: 'Vendor: Joeboy',
         subtitle: 'Electronics'
       },
       {
-        image: 'assets/images/a4.jpg',
+        image: 'src/assets/images/a4.jpg',
         title: 'Vendor: Ma Na',
         subtitle: 'Home & Living'
       },
       {
-        image: 'assets/images/a5.jpg',
+        image: 'src/assets/images/a5.jpg',
         title: 'Vendor: Joseph',
         subtitle: 'Jeweries'
       },
       {
-        image: 'assets/images/a6.jpg',
+        image: 'src/assets/images/a6.jpg',
         title: 'Vendor: Jibola',
         subtitle: 'Cooking spices'
       },
       {
-        image: 'assets/images/a7.jpg',
+        image: 'src/assets/images/a7.jpg',
         title: 'Vendor: Jibola',
         subtitle: 'Plates and utensils'
       },
       {
-        image: 'assets/images/a8.jpg',
+        image: 'src/assets/images/a8.jpg',
         title: 'Vendor: Websi',
         subtitle: 'Tomaotoes'
       },
       {
-        image: 'assets/images/a9.jpg',
+        image: 'src/assets/images/a9.jpg',
         title: 'Vendorr: Leon',
         subtitle: 'clothing'
       },
