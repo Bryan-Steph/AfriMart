@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS -->
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'src/input.css' %}">
+  <link rel="stylesheet" href="">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',  // Emerald green
+            secondary: '#3B82F6', // Blue
+            accent: '#000',   // Amber
+            dark: '#1F2937',     // Dark gray
+            light: '#F9FAFB'     // Light gray
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+  <!-- Location Bar -->
+<div class="bg-primary py-2 px-4 text-white">
+    <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+      <!-- Location & Contact -->
+      <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+        <a href="#" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-geo-alt mr-1"></i>
+          <span>Bamenda-Bambili</span>
+        </a>
+        <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-telephone mr-1"></i>
+          <span>683 558 004</span>
+        </a>
+      </div>
+  
+      <!-- Login/Register Links -->
+      <div class="flex items-center space-x-4">
+        <a href="login.html" class="font-medium hover:text-accent transition-colors">
+          Login
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="registration.html" class="font-medium hover:text-accent transition-colors">
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-bold text-primary">
+          AfriMart
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 mx-6">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Marketplace</a>
+          <div class="dropdown relative">
+            <button class="nav-link flex items-center">
+              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Top Vendors</a>
+              <a href="#" class="dropdown-item">New Sellers</a>
+              <a href="#" class="dropdown-item">Become a Vendor</a>
+            </div>
+          </div>
+          <a href="#" class="nav-link">Storage Pools</a>
+          <a href="#" class="nav-link">Our Impact</a>
+        </nav>
+
+        <!-- Search Bar (Always Visible) -->
+        <div class="relative mx-4 flex-1 max-w-xl">
+          <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Search fresh products..." 
+            class="w-full py-2 px-4 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Action Icons (Always Visible) -->
+        <div class="flex items-center space-x-4">
+          <button id="compareBtn" class="nav-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+          <button id="wishlistBtn" class="nav-icon relative">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="cartBtn" class="nav-icon relative">
+            <i class="bi bi-cart3"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="profileBtn" class="nav-icon">
+            <i class="bi bi-person"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu (Slides from right) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link">Home</a>
+        <a href="#" class="mobile-nav-link">Marketplace</a>
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link flex justify-between items-center">
+            Vendors <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="mobile-dropdown-menu">
+            <a href="#" class="mobile-dropdown-item">Top Vendors</a>
+            <a href="#" class="mobile-dropdown-item">New Sellers</a>
+            <a href="#" class="mobile-dropdown-item">Become a Vendor</a>
+          </div>
+        </div>
+        <a href="#" class="mobile-nav-link">Storage Pools</a>
+        <a href="#" class="mobile-nav-link">Our Impact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Nav Support Section -->
+<section class="nav-support bg-primary text-white py-2 px-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- Sidebar Toggle -->
+      <button id="sidebarToggle" class="flex items-center space-x-2 hover:text-accent transition-colors">
+        <i class="bi bi-list text-xl"></i>
+        <span>Menu</span>
+      </button>
+  
+      <!-- Categories Dropdown -->
+      <div class="categories-dropdown relative  ">
+        <button id="categoriesBtn" class="w-full sm:w-auto flex items-center justify-between space-x-2 hover:text-black transition-colors px-3 py-1  rounded">
+          <i class="bi bi-grid-fill"></i>
+          <span>All Categories</span>
+          <i class="bi bi-chevron-down text-xs"></i>
+        </button>
+        <div id="categoriesMenu" class="categories-menu">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+            <a href="#" class="category-item">
+              <i class="bi bi-tshirt"></i>
+              <span>Fashion & Accessories</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-bag"></i>
+              <span>Bags & Wallets</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-shoe-prints"></i>
+              <span>Shoes</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-basket"></i>
+              <span>Fresh Groceries</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-phone"></i>
+              <span>Electronics</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-house-door"></i>
+              <span>Home & Living</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-book"></i>
+              <span>Books & Stationery</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-controller"></i>
+              <span>Toys & Games</span>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Deals & Promotions -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-percent"></i>
+        <span>Deals & Promotions</span>
+      </a>
+  
+      <!-- Make Product Visible -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-megaphone"></i>
+        <span>Make Your Product Visible</span>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3>Quick Links</h3>
+      <button id="closeSidebar"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="CreateShop.html" class="sidebar-link">
+        <i class="bi bi-shop"></i>
+        <span>Create Shop</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-plus-circle"></i>
+        <span>Shop Items</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-map"></i>
+        <span>Maps</span>
+      </a>
+    </nav>
+  </div>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+
+  <!-- Hero Section -->
+<!-- Hero Section -->
+<section class="hero-section relative h-screen overflow-hidden bg-black">
+    <!-- Carousel Container -->
+    <div class="relative h-full w-full">
+      <!-- Slide 1 (Visible by default) -->
+      <div class="hero-slide absolute inset-0 flex transition-opacity duration-1000">
+        <!-- Image Left Side -->
+        <div class="w-full md:w-1/2 h-full">
+          <img src="{% static 'src/assets/images/hero3.jpg' %}" alt="Product" 
+               class="w-full h-full object-cover object-center">
+        </div>
+        
+        <!-- Video Right Side -->
+        <div class="hidden md:block w-1/2 h-full bg-black">
+          <video autoplay muted loop playsinline
+                 class="w-full h-full object-cover">
+            <source src="src/assets/videos/hero3.mp4" type="video/mp4">
+          </video>
+        </div>
+        
+        <!-- Text Content -->
+        <div class="absolute inset-0 flex items-center justify-center text-center md:justify-start md:text-left md:pl-16">
+          <div class="text-black max-w-md px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-black ">
+                Shop Local. <span class="text-accent-light dark:text-accent-dark">Thrive Together.</span>
+              </h1>
+              <p class="text-lg md:text-xl text-black  mb-8">
+                Discover Bamenda's best vendors from your phone. Fresh finds, fair prices - all at your fingertips.
+              </p>
+            <div class="flex gap-4 justify-center md:justify-start">
+              <button class="bg-white text-black px-6 py-2 rounded-full">Shop</button>
+              <button class="border-2 border-white text-white px-6 py-2 rounded-full">Explore</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Controls -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4">
+      <button class="play-pause bg-black/50 text-white p-2 rounded-full">
+        <i class="bi bi-pause text-xl"></i>
+      </button>
+      <div class="flex gap-2">
+        <button class="w-3 h-3 rounded-full bg-white/50 dot"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 dot"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 dot"></button>
+      </div>
+      <button class="next-slide bg-black/50 text-white p-2 rounded-full">
+        <i class="bi bi-chevron-right text-xl"></i>
+      </button>
+    </div>
+  </section>
+
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <!-- Items will be added dynamically -->
+    </div>
+    <div class="controls">
+      <button id="pauseBtn" class="control-btn">
+        <i class="bi bi-pause-fill" id="pauseIcon"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Featured Categories Section -->
+  <section class="featured-categories py-12 px-4">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Gaming Accessories -->
+        <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300">
+          <img src="{% static 'src/assets/images/game1.jpeg' %}" alt="Gaming accessories" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-4">Gaming accessories</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Headsets</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Keyboards</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Computer mice</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Oasis</a>
+            </div>
+            <a href="#" class="inline-block mt-4 text-blue-600 font-medium hover:underline">See more</a>
+          </div>
+        </div>
+        
+        <!-- Get Your Game On -->
+        <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300">
+          <img src="{% static 'src/assets/images/game2.jpeg' %}" alt="Get your game on" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-4">Get your game on</h3>
+            <div class="space-y-4">
+              <a href="#" class="block category-item hover:text-blue-600 transition-colors">Shop gaming</a>
+              <a href="#" class="block category-item hover:text-blue-600 transition-colors">Show home</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Home Essentials -->
+        <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300">
+          <img src="{% static 'src/assets/images/home1.jpeg' %}" alt="Home essentials" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-4">Shop for your home essentials</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Cleaning Tools</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Home Storage</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Home Dwar</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Bedding</a>
+            </div>
+            <a href="#" class="inline-block mt-4 text-blue-600 font-medium hover:underline">Discover more in Home</a>
+          </div>
+        </div>
+        
+        <!-- Fashion Deals -->
+        <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300">
+          <img src="{% static 'src/assets/images/fashion.jpeg' %}" alt="Fashion deals" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-4">Shop deals in Fashion</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Jeans under $50</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Tops under $25</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Dresses under $30</a>
+              <a href="#" class="category-item hover:text-blue-600 transition-colors">Shoes under $50</a>
+            </div>
+            <a href="#" class="inline-block mt-4 text-blue-600 font-medium hover:underline">See all deals</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+<!-- Featured Categories Section -->
+<section class="py-12 px-4 bg-white">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Shop from our <span class="text-green-500">Markets</span></h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Category 1 -->
+        <div class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+          <a href="#" class="block">
+            <img src="{% static 'src/assets/images/mar1.jpg' %}" alt="Fresh Produce" class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-medium text-lg">Nkwen Market</h3>
+              <p class="text-gray-600 text-sm">Farm-fresh fruits & vegetables</p>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Repeat for other categories -->
+        <div class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+          <a href="#" class="block">
+            <img src="{% static 'src/assets/images/hero1.jpg' %}" alt="Fashion" class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="font-medium text-lg">Main Market</h3>
+              <p class="text-gray-600 text-sm">Traditional & modern styles</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <a href="#" class="block">
+              <img src="{% static 'src/assets/images/game1.jpeg' %}" alt="Fashion" class="w-full h-48 object-cover">
+              <div class="p-4">
+                <h3 class="font-medium text-lg">Market 2</h3>
+                <p class="text-gray-600 text-sm">Traditional & modern styles</p>
+              </div>
+            </a>
+          </div>
+        
+          <div class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <a href="#" class="block">
+              <img src="{% static 'src/assets/images/hero3.jpg' %}" alt="Fashion" class="w-full h-48 object-cover">
+              <div class="p-4">
+                <h3 class="font-medium text-lg">Market 4</h3>
+                <p class="text-gray-600 text-sm">Traditional & modern styles</p>
+              </div>
+            </a>
+          </div>
+          
+        
+        <!-- Add 2 more categories -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- Products Carousel Section -->
+  <section class="py-12 px-4 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold">Trending Products</h2>
+        <a href="#" class="text-primary hover:underline">View all</a>
+      </div>
+      
+      <!-- Products Slider -->
+      <div class="relative">
+        <div class="products-slider flex overflow-x-auto pb-6 space-x-6 scroll-smooth" id="productsSlider">
+          <!-- Product 1 -->
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+              <img src="{% static 'src/assets/images/p1.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+              <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+                <img src="{% static 'src/assets/images/p2.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+                <img src="{% static 'src/assets/images/p3.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+              <img src="{% static 'src/assets/images/p4.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+                <img src="{% static 'src/assets/images/p5.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+                <img src="{% static 'src/assets/images/p6.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-card flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="relative">
+                <img src="{% static 'src/assets/images/p7.jpeg' %}" alt="Product" class="w-full h-48 object-cover">
+                <button class="absolute top-2 right-2 bg-white rounded-full p-2 shadow hover:bg-gray-100">
+                <i class="bi bi-heart text-gray-600"></i>
+              </button>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Organic Plantains</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-gray-500 text-sm ml-2">(24)</span>
+              </div>
+              <div class="mt-2 flex justify-between items-center">
+                <span class="font-bold">1,500 FCFA</span>
+                <button class="bg-primary hover:bg-primary-dark text-white p-2 rounded-full">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          
+          <!-- Add 5-7 more product cards -->
+        </div>
+        
+        <!-- Slider Controls -->
+        <button class="slider-prev absolute left-0 top-1/2 -translate-y-1/2 -ml-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10">
+          <i class="bi bi-chevron-left text-xl"></i>
+        </button>
+        <button class="slider-next absolute right-0 top-1/2 -translate-y-1/2 -mr-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10">
+          <i class="bi bi-chevron-right text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Vendors Section -->
+  <section class="py-12 px-4 bg-white">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Featured Vendors</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Vendor 1 -->
+        <div class="vendor-card bg-gray-50 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+            <img src="{% static 'src/assets/images/ven1.jpg' %}" alt="Vendor" class="w-full h-full object-cover">
+          </div>
+          <h3 class="font-bold text-xl">Bamenda Fresh Mart</h3>
+          <p class="text-gray-600 mb-2">Fresh produce & groceries</p>
+          <div class="flex justify-center space-x-2">
+            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Verified</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Top Rated</span>
+          </div>
+          <a href="#" class="inline-block mt-4 text-primary hover:underline">Visit Shop →</a>
+        </div>
+
+        <div class="vendor-card bg-gray-50 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+                <img src="{% static 'src/assets/images/ven2.jpg' %}" alt="Vendor" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-xl">Bamenda Fresh Mart</h3>
+            <p class="text-gray-600 mb-2">Fresh produce & groceries</p>
+            <div class="flex justify-center space-x-2">
+              <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Verified</span>
+              <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Top Rated</span>
+            </div>
+            <a href="#" class="inline-block mt-4 text-primary hover:underline">Visit Shop →</a>
+          </div>
+
+          <div class="vendor-card bg-gray-50 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary">
+                <img src="{% static 'src/assets/images/ven33.jpg' %}" alt="Vendor" class="w-full h-full object-cover">
+            </div>
+            <h3 class="font-bold text-xl">Bamenda Fresh Mart</h3>
+            <p class="text-gray-600 mb-2">Fresh produce & groceries</p>
+            <div class="flex justify-center space-x-2">
+              <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Verified</span>
+              <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Top Rated</span>
+            </div>
+            <a href="#" class="inline-block mt-4 text-primary hover:underline">Visit Shop →</a>
+          </div>
+        
+        <!-- Add 2 more vendors -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- Special Offers Section -->
+  <section class="py-12 px-4 bg-primary/10">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Today's Special Offers</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Offer 1 -->
+        <div class="offer-card bg-white rounded-xl overflow-hidden shadow-md">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/2">
+              <img src="{% static 'src/assets/images/spec2.jpeg' %}" alt="Special Offer" class="w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-6">
+              <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Limited Time</span>
+              <h3 class="text-2xl font-bold mt-2">20% Off Fresh Vegetables</h3>
+              <p class="text-gray-600 my-3">Get the freshest farm produce at discounted prices this week only</p>
+              <div class="flex items-center">
+                <span class="text-2xl font-bold">1,200 FCFA</span>
+                <span class="ml-2 text-gray-500 line-through">1,500 FCFA</span>
+              </div>
+              <button class="mt-4 w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg">
+                Shop Now
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="offer-card bg-white rounded-xl overflow-hidden shadow-md">
+            <div class="flex flex-col md:flex-row">
+              <div class="md:w-1/2">
+                <img src="{% static 'src/assets/images/spec3.jpeg' %}" alt="Special Offer" class="w-full h-full object-cover">
+              </div>
+              <div class="md:w-1/2 p-6">
+                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Limited Time</span>
+                <h3 class="text-2xl font-bold mt-2">20% Off Fresh Vegetables</h3>
+                <p class="text-gray-600 my-3">Get the freshest farm produce at discounted prices this week only</p>
+                <div class="flex items-center">
+                  <span class="text-2xl font-bold">1,200 FCFA</span>
+                  <span class="ml-2 text-gray-500 line-through">1,500 FCFA</span>
+                </div>
+                <button class="mt-4 w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg">
+                  Shop Now
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Footer Section -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+    <!-- Footer Content -->
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Logo and About -->
+        <div class="footer-col">
+          <div class="flex items-center mb-4">
+            <span class="text-2xl font-bold">AfriMart</span>
+          </div>
+          <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-facebook text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-twitter-x text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-whatsapp text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Customer Service -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+          <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
+            <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
+          </form>
+          
+          <!-- Payment Methods -->
+          <div class="mt-6">
+            <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
+            <div class="flex flex-wrap gap-2">
+              <img src="{% static 'assets/visa.png' %}" alt="Visa" class="h-8">
+              <img src="{% static 'assets/mastercard.png' %}" alt="Mastercard" class="h-8">
+              <img src="{% static 'assets/momo.png' %}" alt="Mobile Money" class="h-8">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Featured Image Banner -->
+      <div class="mb-8 rounded-lg overflow-hidden">
+        <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      
+      <!-- Copyright -->
+      <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+  <script src="{% static 'src/assets/script.js' %}"></script>
+</body>
+</html>
