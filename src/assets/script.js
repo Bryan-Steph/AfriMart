@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileMenuBtn.addEventListener('click', toggleMobileMenu);
     closeMenuBtn.addEventListener('click', toggleMobileMenu);
     overlay.addEventListener('click', toggleMobileMenu);
+    
   
     // Mobile Dropdowns
     const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
