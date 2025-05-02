@@ -1,5 +1,25 @@
 {
+  "name": "afrimart",
+  "version": "1.0.0",
+  "description": "Bamenda's Digital Marketplace",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./src/output.css --minify",
+    "start": "concurrently \"npm run dev\" \"live-server .\" --kill-others",
+    "preview": "live-server .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["afrimart", "bamenda", "ecommerce"],
+  "author": "Your Name",
+  "license": "MIT",
   "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.1",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.11.3"
   }
 }
