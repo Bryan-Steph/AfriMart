@@ -12,21 +12,7 @@
         <link href="src/output.css" rel="stylesheet">
         <link rel="stylesheet" href="src/input.css">
         <link rel="stylesheet" href="">
-        <script>
-          tailwind.config = {
-            theme: {
-              extend: {
-                colors: {
-                  primary: '#10B981',  // Emerald green
-                  secondary: '#3B82F6', // Blue
-                  accent: '#000',   // Amber
-                  dark: '#1F2937',     // Dark gray
-                  light: '#F9FAFB'     // Light gray
-                }
-              }
-            }
-          }
-        </script>
+
        <style>
           .auth-bg {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/market-bg-2.jpg');
@@ -141,7 +127,7 @@
         <p class="text-gray-600 mb-6">Complete your vendor registration to start selling on AfriMart</p>
         
         <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
-          <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+          <div class="bg-primary h-2.5 rounded-full" style="width: 100%"></div>
         </div>
       </div>
 
@@ -206,7 +192,7 @@
         
         <!-- Submit Button -->
         <div class="pt-4">
-          <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white bg-green-400 py-3 px-4 rounded-lg font-medium transition-colors">
+          <button type="submit" class="w-full  hover:bg-primary-dark text-white bg-primary py-3 px-4 rounded-lg font-medium transition-colors">
             Submit for Verification
           </button>
         </div>
@@ -222,9 +208,11 @@
       </div>
       <h3 class="text-xl font-bold text-gray-800 mb-2">Submission Successful!</h3>
       <p class="text-gray-600 mb-6">Thank you for your submission. Our verification team will review your documents within 24 hours. You'll receive a notification once your shop is approved.</p>
-      <button onclick="closeModal()" class="bg-primary hover:bg-primary-dark text-white py-2 px-6 rounded-lg font-medium transition-colors">
-        Close
-      </button>
+      <a href="approvedVendor.html">
+        <button onclick="closeModal()" class="bg-primary hover:bg-primary-dark text-white py-2 px-6 rounded-lg font-medium transition-colors">
+          You have been verified. Proceed
+        </button>
+      </a>
     </div>
   </div>
 

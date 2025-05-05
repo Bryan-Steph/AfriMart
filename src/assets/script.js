@@ -332,9 +332,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sample data - replace with your images and text
     const items = [
       { 
-        image: 'src/assets/images/a1.jpg',
-        title: 'Seth Rogen',
-        subtitle: 'The Zane Lowe Interview'
+        image: 'src/assets/images/a1.jpeg',
+        title: 'Vendor: ......',
+        subtitle: '...........'
       },
       {
         image: 'src/assets/images/a2.jpg',
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subtitle: 'Fashion'
       },
       {
-        image: 'src/assets/images/a3.jpg',
+        image: 'src/assets/images/a3.jpeg',
         title: 'Vendor: Joeboy',
         subtitle: 'Electronics'
       },
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subtitle: 'Tomaotoes'
       },
       {
-        image: 'src/assets/images/a9.jpg',
+        image: 'src/assets/images/a9.jpeg',
         title: 'Vendorr: Leon',
         subtitle: 'clothing'
       },
@@ -449,3 +449,16 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResize);
     handleResize();
   });
+
+  // Handle Plan Selection
+document.querySelectorAll('.select-plan-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    const plan = this.closest('.plan-card').querySelector('h3').textContent;
+    
+    // Store selected plan in localStorage
+    localStorage.setItem('selectedPlan', plan.trim());
+    
+    // Redirect to payment page
+    window.location.href = '/payment.html';
+  });
+});
