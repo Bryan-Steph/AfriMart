@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+      {% load static %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AfriMart - Cameroon's Online Market</title>
@@ -44,11 +45,11 @@
     
         <!-- Login/Register Links -->
         <div class="flex items-center space-x-4">
-          <a href="login.html" class="font-medium hover:text-accent transition-colors">
+          <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
             Login
           </a>
           <span class="text-gray-300">/</span>
-          <a href="registration.html" class="font-medium hover:text-accent transition-colors">
+          <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
             Register
           </a>
         </div>
@@ -64,7 +65,7 @@
   
           <!-- Desktop Navigation -->
           <nav class="hidden md:flex items-center space-x-8 mx-6">
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
             <a href="#" class="nav-link">Marketplace</a>
             <div class="dropdown relative">
               <button class="nav-link flex items-center">

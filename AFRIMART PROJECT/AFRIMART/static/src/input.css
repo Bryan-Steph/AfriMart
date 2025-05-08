@@ -539,12 +539,12 @@ body {
   }
   .carousel-item {
     position: absolute;
-    width: 300px;
-    height: 400px;
+    width: 180px;
+    height: 200px;
     left: 50%;
     top: 50%;
     margin-left: -150px;
-    margin-top: -200px;
+    margin-top: -100px;
     transition: all 0.5s ease;
     background-size: cover;
     background-position: center;
@@ -595,3 +595,36 @@ body {
     background: rgba(0,0,0,0.9);
     transform: scale(1.1);
   }
+
+  /* Plan Cards Animation */
+.plan-card {
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Recommended Plan Highlight */
+.recommended-badge {
+  top: -12px;
+  right: 20px;
+  background: var(--primary);
+}
+
+/* Payment Methods */
+.payment-option {
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .plan-selection {
+    padding: 2rem 1rem;
+  }
+}
