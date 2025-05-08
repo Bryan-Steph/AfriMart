@@ -1,0 +1,7 @@
+.idea/
+.sqlite3
+virtualenv/
+vitualenv/
+staticfiles/
+mediafiles/
+node_modules/
