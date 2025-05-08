@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f3d35ca3-5820-44f2-a183-fec8ea2675d3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/CreateShop.html" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/CreateShop.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/templates/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/AFRIMART/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFRIMART PROJECT/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/AFRIMART PROJECT/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreateShop.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/5644289-uhd_2160_4096_25fps.mp4.crdownload" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/a9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/fashion.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/food.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/game1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/game2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/hero.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/hero1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/hero2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/hero3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/home1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/mar1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p4.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p6.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/p8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-cottonbro-5095271.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-darina-belonogova-7541698.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-isabella-mendes-107313-338711.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-lava-3631384-5433780.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-oleratomotshebe-16674665.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pexels-sebaswhitev-12566558.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/spec1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/spec2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/spec3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/ven1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/ven2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/ven33.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/yep.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/videos/hero1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/videos/hero2.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/videos/hero3.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/input.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/output.css" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2wQeZhgW3q1dPx2QoprSpdeax93" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/CODEPROJECTS/HTML,CSS,DJANGO/pythonProject"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3d35ca3-5820-44f2-a183-fec8ea2675d3" name="Changes" comment="" />
+      <created>1745978283552</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745978283552</updated>
+    </task>
+    <servers />
+  </component>
+</project>
