@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        {% load static %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AfriMart - Cameroon's Online Market</title>
         <!-- Bootstrap Icons -->
@@ -9,8 +10,8 @@
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Custom CSS -->
-        <link href="src/output.css" rel="stylesheet">
-        <link rel="stylesheet" href="src/input.css">
+        <link href="{% static 'src/output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'src/input.css' %}">
         <link rel="stylesheet" href="">
         <script>
           tailwind.config = {
@@ -58,11 +59,11 @@
     
         <!-- Login/Register Links -->
         <div class="flex items-center space-x-4">
-          <a href="login.html" class="font-medium hover:text-accent transition-colors">
+          <a href="{% url 'home' %}" class="font-medium hover:text-accent transition-colors">
             Login
           </a>
           <span class="text-gray-300">/</span>
-          <a href="registration.html" class="font-medium hover:text-accent transition-colors">
+          <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
             Register
           </a>
         </div>
@@ -78,7 +79,7 @@
   
           <!-- Desktop Navigation -->
           <nav class="hidden md:flex items-center space-x-8 mx-6">
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
             <a href="#" class="nav-link">Marketplace</a>
             <div class="dropdown relative">
               <button class="nav-link flex items-center">
@@ -134,6 +135,7 @@
 
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8">
+    
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
       <!-- Progress Bar -->
       <div class="px-8 pt-8">
@@ -146,7 +148,8 @@
       </div>
 
       <!-- Verification Form -->
-      <form id="shopForm" class="px-8 pb-8 space-y-6">
+      <form id="shopForm" class="px-8 pb-8 space-y-6" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <!-- Shop Information -->
         <div>
           <h2 class="text-lg font-semibold text-gray-800 mb-4">Identity Verification</h2>
@@ -294,9 +297,9 @@
         <div class="mt-6">
           <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
           <div class="flex flex-wrap gap-2">
-            <img src="assets/visa.png" alt="Visa" class="h-8">
-            <img src="assets/mastercard.png" alt="Mastercard" class="h-8">
-            <img src="assets/momo.png" alt="Mobile Money" class="h-8">
+            <img src="{% static 'src/assets/visa.png' %}" alt="Visa" class="h-8">
+            <img src="{% static 'src/assets/mastercard.png' %}" alt="Mastercard" class="h-8">
+            <img src="{% static 'assets/momo.png' %}" alt="Mobile Money" class="h-8">
           </div>
         </div>
       </div>
@@ -304,7 +307,7 @@
     
     <!-- Featured Image Banner -->
     <div class="mb-8 rounded-lg overflow-hidden">
-      <img src="src/assets/images/hero2.jpg" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+      <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
     </div>
     
     <!-- Copyright -->
@@ -394,7 +397,8 @@
 
       // If valid, show success modal
       if (isValid) {
-        document.getElementById('successModal').classList.remove('hidden');
+        //document.getElementById('successModal').classList.remove('hidden');
+        document.getElementById('shopForm').submit()
       }
     });
 
@@ -404,5 +408,10 @@
       // window.location.href = '/vendor-dashboard';
     }
   </script>
+  {% if success %}
+      <script>
+        document.getElementById('successModal').classList.remove('hidden');
+      </script>
+    {% endif %}
 </body>
 </html>

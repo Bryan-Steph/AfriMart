@@ -49,11 +49,11 @@
   
       <!-- Login/Register Links -->
       <div class="flex items-center space-x-4">
-        <a href="login.html" class="font-medium hover:text-accent transition-colors">
+        <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
           Login
         </a>
         <span class="text-gray-300">/</span>
-        <a href="registration.html" class="font-medium hover:text-accent transition-colors">
+        <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
           Register
         </a>
       </div>
@@ -227,7 +227,7 @@
       <button id="closeSidebar"><i class="bi bi-x-lg"></i></button>
     </div>
     <nav class="sidebar-nav">
-      <a href="CreateShop.html" class="sidebar-link">
+      <a href="{% url 'createshop' %}" class="sidebar-link">
         <i class="bi bi-shop"></i>
         <span>Create Shop</span>
       </a>
