@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AfriMart - Cameroon's Online Market</title>
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Custom CSS -->
+        <link href="{% static 'src/output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'src/input.css' %}">
+        <link rel="stylesheet" href="">
+
+       <style>
+          .auth-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/market-bg-2.jpg');
+            background-size: cover;
+            background-position: center;
+          }
+          .input-field:focus {
+            box-shadow: 0 0 0 2px #10B981;
+          }
+        </style>
+      </head>
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <!-- Location Bar -->
+  <div class="bg-primary py-2 px-4 text-white">
+      <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+        <!-- Location & Contact -->
+        <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+          <a href="#" class="flex items-center hover:text-accent transition-colors">
+            <i class="bi bi-geo-alt mr-1"></i>
+            <span>Bamenda-Bambili</span>
+          </a>
+          <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+            <i class="bi bi-telephone mr-1"></i>
+            <span>683 558 004</span>
+          </a>
+        </div>
+    
+        <!-- Login/Register Links -->
+        <div class="flex items-center space-x-4">
+          <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
+            Login
+          </a>
+          <span class="text-gray-300">/</span>
+          <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
+            Register
+          </a>
+        </div>
+      </div>
+    </div>
+  
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo -->
+          <a href="#" class="text-2xl font-bold text-primary">
+            AfriMart
+          </a>
+  
+          <!-- Desktop Navigation -->
+          <nav class="hidden md:flex items-center space-x-8 mx-6">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Marketplace</a>
+            <div class="dropdown relative">
+              <button class="nav-link flex items-center">
+                Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item">Top Vendors</a>
+                <a href="#" class="dropdown-item">New Sellers</a>
+                <a href="#" class="dropdown-item">Become a Vendor</a>
+              </div>
+            </div>
+            <a href="#" class="nav-link">Storage Pools</a>
+            <a href="#" class="nav-link">Our Impact</a>
+          </nav>
+  
+          <!-- Search Bar (Always Visible) -->
+          <div class="relative mx-4 flex-1 max-w-xl">
+            <input 
+              type="text" 
+              id="searchBar" 
+              placeholder="Search fresh products..." 
+              class="w-full py-2 px-4 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+            <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+            <div id="searchResults" class="search-results"></div>
+          </div>
+  
+          <!-- Action Icons (Always Visible) -->
+          <div class="flex items-center space-x-4">
+            <button id="compareBtn" class="nav-icon">
+              <i class="bi bi-arrow-left-right"></i>
+            </button>
+            <button id="wishlistBtn" class="nav-icon relative">
+              <i class="bi bi-heart"></i>
+              <span class="nav-badge">0</span>
+            </button>
+            <button id="cartBtn" class="nav-icon relative">
+              <i class="bi bi-cart3"></i>
+              <span class="nav-badge">0</span>
+            </button>
+            <button id="profileBtn" class="nav-icon">
+              <i class="bi bi-person"></i>
+            </button>
+          </div>
+  
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+            <i class="bi bi-list text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+<!-- Plan Selection Section -->
+<section class="plan-selection py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
+    <!-- Animated Verification Badge -->
+    <div class="approved-banner max-w-4xl mx-auto mb-12">
+      <div class="flex items-center bg-white p-5 rounded-xl shadow-lg border-l-4 border-green-500 animate-float">
+        <div class="mr-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <i class="bi bi-check2-circle text-green-600 text-2xl"></i>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-gray-800">Account Verified!</h3>
+          <p class="text-gray-600">Your vendor profile is approved. Select a plan to unlock your store.</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Plan Cards Grid -->
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+        Grow Your Business
+      </h2>
+      <p class="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        Choose the perfect plan for your needs. <span class="font-semibold text-primary">All prices in FCFA</span>
+      </p>
+  
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Starter Plan -->
+        <div class="plan-card group relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:border-primary transition-all duration-500">
+          <div class="absolute inset-0 bg-[url({% static '/src/assets/images/plan-bg-starter.jpg' %})] bg-cover opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
+          <div class="relative p-8">
+            <div class="flex justify-between items-start mb-6">
+              <div>
+                <h3 class="text-2xl font-bold mb-1">Market Starter</h3>
+                <p class="text-gray-500">For new vendors</p>
+              </div>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                POPULAR
+              </span>
+            </div>
+            
+            <div class="price mb-8">
+              <span class="text-5xl font-bold">500</span>
+              <span class="text-gray-500">/month</span>
+            </div>
+            
+            <ul class="space-y-4 mb-10">
+              <li class="flex items-center">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="bi bi-check text-green-600 text-xs"></i>
+                  </div>
+                </div>
+                <span>5 product listings</span>
+              </li>
+              <li class="flex items-center">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="bi bi-check text-green-600 text-xs"></i>
+                  </div>
+                </div>
+                <span>Basic store customization</span>
+              </li>
+              <li class="flex items-center text-gray-400">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="bi bi-x text-gray-400 text-xs"></i>
+                  </div>
+                </div>
+                <span>No featured placement</span>
+              </li>
+            </ul>
+            
+            <button class="select-plan-btn w-full py-3 px-6 rounded-lg bg-gradient-to-r from-gray-100 to-gray-50 border border-gray-200 text-gray-800 font-medium hover:from-primary hover:to-primary-dark hover:text-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group-hover:border-transparent">
+              Get Started
+              <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Professional Plan (Featured) -->
+        <div class="plan-card featured-plan relative transform scale-[1.02]">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl opacity-20 blur-md"></div>
+          <div class="relative h-full bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-primary">
+            <div class="absolute top-0 right-0 bg-primary text-white px-4 py-1 text-sm font-bold rounded-bl-lg">
+              BEST VALUE
+            </div>
+            <div class="p-8">
+              <h3 class="text-2xl font-bold mb-1">Market Pro</h3>
+              <p class="text-gray-600">For growing businesses</p>
+              
+              <div class="price my-6">
+                <span class="text-5xl font-bold">1,500</span>
+                <span class="text-gray-500">/month</span>
+              </div>
+              
+              <ul class="space-y-4 mb-10">
+                <li class="flex items-center">
+                  <div class="mr-3 flex-shrink-0">
+                    <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <i class="bi bi-check text-green-600 text-xs"></i>
+                    </div>
+                  </div>
+                  <span>25 product listings</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="mr-3 flex-shrink-0">
+                    <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <i class="bi bi-check text-green-600 text-xs"></i>
+                    </div>
+                  </div>
+                  <span>Priority in search results</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="mr-3 flex-shrink-0">
+                    <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <i class="bi bi-check text-green-600 text-xs"></i>
+                    </div>
+                  </div>
+                  <span>Advanced analytics</span>
+                </li>
+              </ul>
+              
+              <button class="select-plan-btn w-full py-3 px-6 rounded-lg bg-gradient-to-r from-primary to-primary-dark text-white font-medium hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                Choose Pro
+                <i class="bi bi-lightning-fill ml-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Enterprise Plan -->
+        <div class="plan-card group relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:border-accent transition-all duration-500">
+          <div class="absolute inset-0 bg-[url({% static '/src/assets/images/plan-bg-premium.jpg' %})] bg-cover opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
+          <div class="relative p-8">
+            <h3 class="text-2xl font-bold mb-1">Market Elite</h3>
+            <p class="text-gray-500">For established sellers</p>
+            
+            <div class="price my-6">
+              <span class="text-5xl font-bold">3,000</span>
+              <span class="text-gray-500">/month</span>
+            </div>
+            
+            <ul class="space-y-4 mb-10">
+              <li class="flex items-center">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="bi bi-check text-green-600 text-xs"></i>
+                  </div>
+                </div>
+                <span>Unlimited products</span>
+              </li>
+              <li class="flex items-center">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="bi bi-check text-green-600 text-xs"></i>
+                  </div>
+                </div>
+                <span>Top search placement</span>
+              </li>
+              <li class="flex items-center">
+                <div class="mr-3 flex-shrink-0">
+                  <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="bi bi-check text-green-600 text-xs"></i>
+                  </div>
+                </div>
+                <span>Dedicated support</span>
+              </li>
+            </ul>
+            
+            <button class="select-plan-btn w-full py-3 px-6 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-medium hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              Go Elite
+              <i class="bi bi-stars ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="payment-section mt-20 max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold mb-2">Local Payment Options</h3>
+          <p class="text-gray-600">Secure payments processed directly in FCFA</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- MTN Mobile Money -->
+          <div class="payment-card group">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-yellow-500 transition-all duration-300 h-full flex flex-col items-center justify-center">
+              <img src="{% static 'src/assets/images/MTNlogo.jpeg' %}" alt="MTN Mobile Money" class="h-12 mb-3 group-hover:scale-105 transition-transform">
+              <span class="text-sm font-medium">MTN Mobile Money</span>
+            </div>
+          </div>
+          
+          <!-- Orange Money -->
+          <div class="payment-card group">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-orange-500 transition-all duration-300 h-full flex flex-col items-center justify-center">
+            <img src="{% static '/src/assets/images/orangeLogo.png' %}" alt="Orange Money" class="h-12 mb-3 group-hover:scale-105 transition-transform">
+              <span class="text-sm font-medium">Orange Money</span>
+            </div>
+          </div>
+          
+          <!-- Express Union Mobile -->
+          <div class="payment-card group">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-blue-600 transition-all duration-300 h-full flex flex-col items-center justify-center">
+              <img src="{% static '/src/assets/images/express union.png' %}" alt="Express Union Mobile" class="h-12 mb-3 group-hover:scale-105 transition-transform">
+              <span class="text-sm font-medium">Express Union</span>
+            </div>
+          </div>
+          
+          <!-- Visa (Optional) -->
+          <div class="payment-card group">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-blue-900 transition-all duration-300 h-full flex flex-col items-center justify-center">
+              <img src="{% static '/src/assets/images/visalogo.jpeg' %}" alt="Visa" class="h-8 mb-3 group-hover:scale-105 transition-transform">
+              <span class="text-sm font-medium">Visa Card</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="text-sm text-gray-500">All transactions secured with SSL encryption</p>
+        </div>
+      </div></section>
+              
+             
+
+  <!-- Footer Section -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+  <!-- Footer Content -->
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      
+      <!-- Logo and About -->
+      <div class="footer-col">
+        <div class="flex items-center mb-4">
+          <span class="text-2xl font-bold">AfriMart</span>
+        </div>
+        <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="bi bi-facebook text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="bi bi-twitter-x text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="bi bi-instagram text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="bi bi-whatsapp text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+        </ul>
+      </div>
+      
+      <!-- Customer Service -->
+      <div class="footer-col">
+        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <!-- Newsletter -->
+      <div class="footer-col">
+        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+        <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
+        <form class="flex">
+          <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
+          <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
+        </form>
+        
+        <!-- Payment Methods -->
+        <div class="mt-6">
+          <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
+          <div class="flex flex-wrap gap-2">
+            <img src="{% static 'src/assets/images/MTNlogo.jpeg' %}" alt="Mobile Money" class="h-full w-full">
+            <img src="{% static 'src/assets/images/visalogo.jpeg' %}" alt="Visa" class="h-8">
+            <img src="{% static 'src/assets/images/mastercardLogo.png' %}" alt="Mastercard" class="h-8">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Featured Image Banner -->
+    <div class="mb-8 rounded-lg overflow-hidden">
+      <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+    </div>
+    
+    <!-- Copyright -->
+    <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
