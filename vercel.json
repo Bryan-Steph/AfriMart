@@ -1,10 +1,10 @@
 {
     "builds":[
         {
-            "src":"AfrimartCore/wsgi.py",
+            "src":"AFRIMART PROJECT/AfrimartCore/wsgi.py",
             "use":"@vercel/python",
             "config":{
-                "maxLambdaSize":"15mb",
+                "maxLambdaSize":"200mb",
                 "runtime":"python3.9"
             }
         }
@@ -12,7 +12,7 @@
     "routes":[
         {
             "src":"/(.*)",
-            "dest":"AfrimartCore/wsgi.py"
+            "dest":"AFRIMART PROJECT/AfrimartCore/wsgi.py"
         }
     ]
 }
