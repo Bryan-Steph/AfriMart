@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: [
+    './afrismart_project/AFRIMART/templates/**/*.html',
+    './afrismart_project/AfrimartCore/templates/**/*.html',
+    './**/*.{js,html}',
+    "./src/**/*.{html,js}"
+  ],
   theme: {
     extend: {
       colors: {
