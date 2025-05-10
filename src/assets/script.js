@@ -269,6 +269,57 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+// ADS FOR MOBILE VIEW
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.innerWidth >= 768) return; // Only run on mobile
+  
+  const slides = document.querySelectorAll('.video-ad-slide');
+  const dots = document.querySelectorAll('.ad-dot');
+  let currentIndex = 0;
+  let interval;
+  
+  // Initialize
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    
+    // Restart video playback
+    const video = slides[index].querySelector('video');
+    video.currentTime = 0;
+    video.play();
+  }
+  
+  // Auto-rotate every 8 seconds
+  function startCarousel() {
+    interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }, 8000);
+  }
+  
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      clearInterval(interval);
+      currentIndex = index;
+      showSlide(currentIndex);
+      startCarousel();
+    });
+  });
+  
+  // Pause on hover (for tablets)
+  const carousel = document.querySelector('.video-ad-carousel');
+  carousel.addEventListener('mouseenter', () => clearInterval(interval));
+  carousel.addEventListener('mouseleave', startCarousel);
+  
+  // Start
+  showSlide(0);
+  startCarousel();
+});
+  
   // Products Slider Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const slider = document.getElementById('productsSlider');
