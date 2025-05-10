@@ -796,3 +796,4 @@ body {
 }
 tr { animation: fadeIn 0.5s ease forwards; }
 tr:nth-child(even) { animation-delay: 0.1s; }
+

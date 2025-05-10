@@ -597,3 +597,5 @@ document.querySelectorAll('.select-plan-btn').forEach(button => {
     // In a real app, you might redirect to dashboard here
     // window.location.href = '/vendor-dashboard';
   }
+
+  
