@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subtitle: '...........'
       },
       {
-        image: 'src/assets/images/a2.jpg',
+        image: 'src/assets/images/a2.jpeg',
         title: 'Vendor: Claris',
         subtitle: 'Fashion'
       },
@@ -462,3 +462,87 @@ document.querySelectorAll('.select-plan-btn').forEach(button => {
     window.location.href = '/payment.html';
   });
 });
+
+  // File Upload Previews
+  document.getElementById('photoUpload').addEventListener('click', () => document.getElementById('vendorPhoto').click());
+  document.getElementById('idUpload').addEventListener('click', () => document.getElementById('idCard').click());
+  document.getElementById('proofUpload').addEventListener('click', () => document.getElementById('shopProof').click());
+
+  document.getElementById('vendorPhoto').addEventListener('change', function(e) {
+    handleFileSelect(e, 'photoPreview', 'photoUpload');
+  });
+  
+  document.getElementById('idCard').addEventListener('change', function(e) {
+    handleFileSelect(e, 'idPreview', 'idUpload');
+  });
+  
+  document.getElementById('shopProof').addEventListener('change', function(e) {
+    handleFileSelect(e, 'proofPreview', 'proofUpload');
+  });
+
+  function handleFileSelect(event, previewId, uploadBoxId) {
+    const file = event.target.files[0];
+    const preview = document.getElementById(previewId);
+    const uploadBox = document.getElementById(uploadBoxId);
+
+    if (file && file.type.match('image.*')) {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+        uploadBox.querySelector('i').classList.add('hidden');
+        uploadBox.querySelector('p').classList.add('hidden');
+        uploadBox.querySelector('.text-xs').classList.add('hidden');
+      }
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Form Submission
+  document.getElementById('shopForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Reset errors
+    document.querySelectorAll('[id$="Error"]').forEach(el => {
+      el.classList.add('hidden');
+    });
+
+    let isValid = true;
+
+    // Validate photo
+    if (!document.getElementById('vendorPhoto').files.length) {
+      document.getElementById('photoError').classList.remove('hidden');
+      isValid = false;
+    }
+
+    // Validate ID
+    if (!document.getElementById('idCard').files.length) {
+      document.getElementById('idError').classList.remove('hidden');
+      isValid = false;
+    }
+
+    // Validate proof
+    if (!document.getElementById('shopProof').files.length) {
+      document.getElementById('proofError').classList.remove('hidden');
+      isValid = false;
+    }
+
+    // Validate terms
+    if (!document.getElementById('verificationTerms').checked) {
+      document.getElementById('termsError').classList.remove('hidden');
+      isValid = false;
+    }
+
+    // If valid, show success modal
+    if (isValid) {
+      document.getElementById('successModal').classList.remove('hidden');
+    }
+  });
+
+  function closeModal() {
+    document.getElementById('successModal').classList.add('hidden');
+    // In a real app, you might redirect to dashboard here
+    // window.location.href = '/vendor-dashboard';
+  }
