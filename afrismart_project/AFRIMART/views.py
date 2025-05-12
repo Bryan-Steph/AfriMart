@@ -14,7 +14,7 @@ def Afrimartaccountcreation(request):
             User.objects.get(email=request.POST['email'])
             return render(request, "registration.html", context={"warning":"An account already exists with this email"})
         except:
-            username=f"{request.POST['fullname']} _{request.POST['fullname']}"
+            username=f"{request.POST['fullname']} _{request.POST['email']}"
             #creating user
             user = User.objects.create_user(
                 password=request.POST['password'],
