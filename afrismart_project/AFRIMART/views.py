@@ -52,7 +52,6 @@ def Afrimartlogin(request):#login page
 def Afrimartcreateshop(request):
     if not request.user.is_authenticated:#ensuring user is logged in
         return HttpResponse("You must be loggedin before creating a virtual shop")
-    
     if request.method=='POST':
         user=request.user
         Shop.objects.create(
