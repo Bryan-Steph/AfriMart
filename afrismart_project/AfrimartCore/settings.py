@@ -137,6 +137,8 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'wQii-7-rcCgerTd1f1nf1XlxaXY',
     }
 
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
