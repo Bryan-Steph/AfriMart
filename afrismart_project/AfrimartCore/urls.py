@@ -28,5 +28,5 @@ urlpatterns = [
 if DEBUG:
     urlpatterns += static(
         MEDIA_URL,
-        document_root=MEDIA_ROOT,
+        # document_root=MEDIA_ROOT,
     )
