@@ -62,7 +62,7 @@ def Afrimartcreateshop(request):
             Shop_proof=request.FILES['shopProof']
         )
         return render(request, "Createshop.html", {"success":"success"})
-    return render(request, "Createshop.html")
+    return render(request, "createshop.html")
 
 def Afrimartapprovedvendor(request):
     return render(request, "approvedVendor.html")
