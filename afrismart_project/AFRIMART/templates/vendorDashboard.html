@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
+  <!-- Bootstrap Icons -->
+   <link rel="stylesheet" href="{% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
+  <!-- Tailwind CSS -->
+   <link rel="stylesheet" href="{% static 'src/output.css' %}">
+   <!-- <link rel="stylesheet" href="src/input.css"> -->
+
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    
+  <!-- Location Bar -->
+<div class="bg-primary py-2 px-4 text-white">
+    <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+      <!-- Location & Contact -->
+      <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+        <a href="#" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-geo-alt mr-1"></i>
+          <span>Bamenda-Bambili</span>
+        </a>
+        <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-telephone mr-1"></i>
+          <span>683 558 004</span>
+        </a>
+      </div>
+  
+      <!-- Login/Register Links -->
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
+          Login
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+  <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between flex-wra h-16">
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-bold text-primary">
+          <!-- AfriMart1 -->
+           <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[150px] hidden md:block" alt="">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 mx-6">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Marketplace</a>
+          <div class="dropdown relative">
+            <button class="nav-link flex items-center">
+              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Top Vendors</a>
+              <a href="#" class="dropdown-item">New Sellers</a>
+              <a href="#" class="dropdown-item">Become a Vendor</a>
+            </div>
+          </div>
+          <a href="#" class="nav-link">Storage Pools</a>
+          <a href="#" class="nav-link">Our Impact</a>
+        </nav>
+
+        <!-- Search Bar (Always Visible) -->
+        <div class="relative mx-4 flex-1 max-w-xl md:w-full ">
+          <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Search... fresh products..." 
+            class="md:w-full py-2 px-4 pr-10 border w-[150px] border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400 hidden md:block"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Action Icons (Always Visible) -->
+        <div class="flex items-center space-x-4">
+          <button id="compareBtn" class="nav-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+          <button id="wishlistBtn" class="nav-icon relative">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="cartBtn" class="nav-icon relative">
+            <i class="bi bi-cart3"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="profileBtn" class="nav-icon">
+            <i class="bi bi-person"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- Mobile Menu (Slides from right) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link">Home</a>
+        <a href="#" class="mobile-nav-link">Marketplace</a>
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link flex justify-between items-center">
+            Vendors <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="mobile-dropdown-menu">
+            <a href="#" class="mobile-dropdown-item">Top Vendors</a>
+            <a href="#" class="mobile-dropdown-item">New Sellers</a>
+            <a href="#" class="mobile-dropdown-item">Become a Vendor</a>
+          </div>
+        </div>
+        <a href="#" class="mobile-nav-link">Storage Pools</a>
+        <a href="#" class="mobile-nav-link">Our Impact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+
+  <!-- Dashboard Header -->
+<section id="vendorHeader" class="bg-gradient-to-r from-dark to-primary py-6 px-4 shadow-lg">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+      <!-- Animated Logo -->
+      <div class="flex items-center mb-4 md:mb-0">
+        <h1 class="text-2xl font-bold text-light">
+          <span class="text-accent">Afri</span><span class="text-primary">Mart</span>
+        </h1>
+        <span class="ml-2 px-3 py-1 bg-light/10 rounded-full text-xs text-light animate-pulse">VENDOR MODE</span>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="flex space-x-4">
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center min-w-[100px] hover:scale-105 transition-transform">
+          <p class="text-xs text-light/80">Products</p>
+          <p class="text-xl font-bold text-light">24</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center min-w-[100px] hover:scale-105 transition-transform">
+          <p class="text-xs text-light/80">Sales</p>
+          <p class="text-xl font-bold text-light">1,240K FCFA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Main Dashboard -->
+  <section id="vendorDashboard" class="bg-light/5 min-h-screen p-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Sidebar Navigation -->
+      <div class="bg-white rounded-xl shadow-lg p-6 lg:col-span-1">
+        <nav class="space-y-4">
+          <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-primary/10 text-primary font-medium">
+            <i class="bi bi-grid-fill"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-dark/5 text-dark transition-colors">
+            <i class="bi bi-box-seam"></i>
+            <span>Products</span>
+          </a>
+          <!-- Add more nav items (Orders, Analytics, etc.) -->
+        </nav>
+      </div>
+  
+      <!-- Content Area -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- Welcome Card -->
+        <div class="bg-gradient-to-r from-primary to-secondary rounded-xl shadow-lg p-6 text-white relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+          <h2 class="text-2xl font-bold mb-2">Welcome back, <span class="text-accent">Bamenda Fresh</span>!</h2>
+          <p class="mb-4">Your shop is performing 12% better than last month. Keep it up!</p>
+          <button class="px-4 py-2 bg-white text-dark rounded-lg font-medium hover:bg-accent hover:text-light transition-colors">
+            View Analytics <i class="bi bi-arrow-right ml-2"></i>
+          </button>
+        </div>
+  
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white rounded-xl shadow-md p-5 text-center hover:shadow-lg transition-shadow">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i class="bi bi-plus-lg text-primary text-xl"></i>
+            </div>
+            <h3 class="font-medium text-dark mb-1">Add Product</h3>
+            <p class="text-xs text-secondary">List new items</p>
+          </div>
+          <!-- Add more action cards (Promotions, Messages, etc.) -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Table -->
+<section id="productTable" class="p-6">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <!-- Table Header -->
+      <div class="flex justify-between items-center p-4 border-b border-secondary/10">
+        <h3 class="font-bold text-dark">Your Products (24)</h3>
+        <button class="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+          <i class="bi bi-plus-lg"></i>
+          <span>Add New</span>
+        </button>
+      </div>
+  
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-dark/5 text-left">
+            <tr>
+              <th class="p-4">Product</th>
+              <th class="p-4">Price (FCFA)</th>
+              <th class="p-4">Stock</th>
+              <th class="p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Sample Row -->
+            <tr class="border-b border-secondary/10 hover:bg-primary/5 transition-colors">
+              <td class="p-4 flex items-center space-x-3">
+                <img src="https://via.placeholder.com/50" alt="Product" class="w-10 h-10 rounded-lg object-cover">
+                <span class="font-medium">Fresh Tomatoes</span>
+              </td>
+              <td class="p-4">500</td>
+              <td class="p-4">
+                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">In Stock</span>
+              </td>
+              <td class="p-4">
+                <div class="flex space-x-2">
+                  <button class="p-2 text-secondary hover:text-primary transition-colors">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="p-2 text-secondary hover:text-red-500 transition-colors">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- Add more rows -->
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Pagination -->
+      <div class="flex justify-between items-center p-4">
+        <span class="text-sm text-secondary">Showing 1-10 of 24</span>
+        <div class="flex space-x-2">
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-secondary/20 hover:bg-primary/10 transition-colors">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white">1</button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-secondary/20 hover:bg-primary/10 transition-colors">2</button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-secondary/20 hover:bg-primary/10 transition-colors">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+
+
+
+
+
+
+
+<!-- Footer Section -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+    <!-- Footer Content -->
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Logo and About -->
+        <div class="footer-col">
+          <div class="flex items-center mb-4">
+            <span class="text-2xl font-bold">AfriMart</span>
+          </div>
+          <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-facebook text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-twitter-x text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-whatsapp text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Customer Service -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+          <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
+            <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
+          </form>
+          
+          <!-- Payment Methods -->
+          <div class="mt-6">
+            <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
+            <div class="flex flex-wrap gap-2">
+              <img src="{% static 'src/assets/images/MTNlogo.jpeg" alt="Mobile Money" class="h-full w-full' %}">
+              <img src="{% static 'src/assets/images/visalogo.jpeg" alt="Visa" class="h-8' %}">
+              <img src="{% static 'src/assets/images/mastercardLogo.png" alt="Mastercard" class="h-8' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Featured Image Banner -->
+      <div class="mb-8 rounded-lg overflow-hidden">
+        <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      
+      <!-- Copyright -->
+      <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="{% static 'src/assets/bootstrap-icons/bootstrap-icons.json' %}"></script>
+  <script src="{% static 'src/assets/script.js' %}"></script>
+</body>
+</html>

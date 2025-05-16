@@ -65,3 +65,6 @@ def Afrimartcreateshop(request):
 
 def Afrimartapprovedvendor(request):
     return render(request, "approvedVendor.html")
+
+def vendordashboard(request):
+    return render(request, "vendorDashboard.html")

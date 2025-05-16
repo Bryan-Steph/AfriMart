@@ -6,6 +6,7 @@ urlpatterns = [
     path("registration/",views.Afrimartaccountcreation, name="registration"),
     path("login/",views.Afrimartlogin, name="login"),
     path("createshop/", views.Afrimartcreateshop, name="createshop"),
-    path("approvedvendor/",views.Afrimartapprovedvendor, name="approvedvendor")
+    path("approvedvendor/",views.Afrimartapprovedvendor, name="approvedvendor"),
+    path('vendordashboard/',views.vendordashboard, name="dashboard")
     
 ]
