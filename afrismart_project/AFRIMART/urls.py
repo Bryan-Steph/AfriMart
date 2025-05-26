@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path("",views.Afrimarthome, name="home"),
     path("registration/",views.Afrimartaccountcreation, name="registration"),
+    path("emailverifricationcode/", views.verifyemail, name="mailverification"),
     path("login/",views.Afrimartlogin, name="login"),
     path("createshop/", views.Afrimartcreateshop, name="createshop"),
     path("approvedvendor/",views.Afrimartapprovedvendor, name="approvedvendor"),

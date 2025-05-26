@@ -12,6 +12,7 @@
   <!-- Custom CSS -->
   <link href="{% static 'src/output.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'src/input.css' %}">
+  <link rel="stylesheet" href="{% static 'src/verification_code_stylesheet.css' %}">
   <link rel="stylesheet" href="">
   <script>
     tailwind.config = {
@@ -41,10 +42,15 @@
 </head>
 
 <body class="bg-gray-100">
+    
+  {% if error %}
+    <script>
+      alert("{{ error }}");
+    </script>
+  {% endif %}
 
 
-
-    <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="min-h-screen flex items-center justify-center p-4" id="maindiv">
         <div class="flex w-full max-w-6xl rounded-xl overflow-hidden shadow-2xl">
           <!-- Left Side - Image -->
           <div class="hidden md:block md:w-1/2 auth-bg text-white p-12 flex flex-col justify-center">
@@ -191,11 +197,13 @@
         </div>
       </div>
 
+
+
       <a href="{% url 'home' %}">
         <button  class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-4 rounded-lg font-medium transition-colors">
             Back to Home
           </button>
-    </a>
+      </a>
     
       <script>
         document.getElementById('registerForm').addEventListener('submit', function(e) {
@@ -251,14 +259,11 @@
           
           // Form is valid - submit (in a real app, you would send to server)
           if (isValid) {
-            var form = document.getElementById('registerForm');
-            form.submit()
-            // window.location.href = 'dashboard.html';
+            
+            document.getElementById('registerForm').submit();
           }
-          else{
-            alert('Registration not successful!');
-          }
-        });
+          
+        
       </script>
   </body>
   </html>

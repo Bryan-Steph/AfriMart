@@ -1,35 +1,86 @@
-from django.shortcuts import render,redirect, HttpResponse
+from django.shortcuts import render,redirect, HttpResponse, reverse
 from django.contrib.auth.models import User
 from .models import Profile, Shop
 from django.utils.timezone import now
 from django.contrib.auth import login, logout,authenticate
+from .functions import generate_email_comfirmation_code
+from django.core.mail import send_mail
+import json
+from django.http import JsonResponse
 
 
 def Afrimarthome(request):#home page
     return render(request, "index.html")
 
+
+def verifyemail(request):
+    if request.method == 'POST':
+        try:
+            destination=reverse('createshop')
+            session_data=request.session.get('registrationcode')
+            email=session_data['email']
+            password=session_data['password']
+            phone=session_data['phone']
+            full_name=session_data['fullname']
+            code=session_data['code']
+
+            if request.POST['code']:
+                user=User.objects.create_user(
+                    email=email,
+                    password=password,
+                    username=f"{full_name}_{email}",
+                    first_name=full_name
+                )
+                Profile.object.create(
+                    user=user,
+                    Phone=phone
+                )
+                send_mail(
+                    "Verification Code to Complete account registration",  # subject
+                    f"Congratulations {full_name} you have completed you registration now, discover how to expand your market scope AfriMart Plateform. Visit {request.build_absolute_uri(destination)}",
+                    # message
+                    'afrimmartonlinemarket@gmail.com',
+                    [email],
+                    fail_silently=False
+                )
+                return redirect('home')
+        except:
+            destination = reverse('registration')
+            return HttpResponse(f"You have to pass through registration form page first of all <a href='{request.build_absolute_uri(destination)}'>Link</a>")
+    return render(request, "verification_code.html")
+
+
 def Afrimartaccountcreation(request):
     if request.method=='POST':
+        email=request.POST['email']
+        password=request.POST['password']
+        phone=request.POST['phone']
+        fullname=request.POST['fullname']
         try:
-            User.objects.get(email=request.POST['email'])
-            return render(request, "registration.html", context={"warning":"An account already exists with this email"})
+            User.objects.get(email=email)
+            return render(request, "registration.html" , {"warning": "A User already exists with this account"})
         except:
-            username=f"{request.POST['fullname']} _{request.POST['email']}"
-            #creating user
-            user = User.objects.create_user(
-                password=request.POST['password'],
-                first_name=request.POST['fullname'],
-                email=request.POST['email'],
-                username=username
-            )
-            Profile.objects.create(
-                user=user,
-                Phone=request.POST['phone']
-            )
-            #login created user
-            login(request, user)
-            return redirect('home')
+            code=generate_email_comfirmation_code()
+            try:
+                send_mail(
+                    "Verification Code to Complete account registration",  # subject
+                    f"Hello, you've started Your account Creation on AfriMart online market Complete your registration by copying and pasting this secrete code {code}",  # message
+                    'afrimmartonlinemarket@gmail.com',
+                    [email],
+                    fail_silently=False
+                )
+                request.session['registrationcode']={
+                    "email":email,
+                    "password":password,
+                    "phone":phone,
+                    "fullname":fullname,
+                    "code":code
+                }
+                return redirect('mailverification')
+            except:
+                return render(request, "registration.html", {"error":"Could not send email, ensure your email exist and try again"})
     return render(request, "registration.html")
+
     
     
     

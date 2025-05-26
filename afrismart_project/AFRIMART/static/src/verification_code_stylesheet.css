@@ -1,0 +1,18 @@
+.formz{
+    width: 33%;
+    min-width: 350px;
+    position:fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50, -50);
+    border:1px gray solid;
+    box-shadow: 5px 5px 10px rgb(237, 234, 234);
+}
+
+.inputz{
+    width: 90%;
+    border-radius: 5px;
+    padding: 4px;
+    margin: auto;
+}
+
