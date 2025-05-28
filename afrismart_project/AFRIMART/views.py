@@ -43,7 +43,7 @@ def verifyemail(request):
                     "Verification Code to Complete account registration",  # subject
                     f"Congratulations {full_name} you have completed you registration now, discover how to expand your market scope AfriMart Plateform. Visit {request.build_absolute_uri(destination)}",
                     # message
-                    'afrimmartonlinemarket@gmail.com',
+                    'afrimartonlinemarket@gmail.com',
                     [email],
                     fail_silently=False
                 )
@@ -71,7 +71,7 @@ def Afrimartaccountcreation(request):
                 send_mail(
                     "Verification Code to Complete account registration",  # subject
                     f"Hello, you've started Your account Creation on AfriMart online market Complete your registration by copying and pasting this secrete code {code}",  # message
-                    'afrimmartonlinemarket@gmail.com',
+                    'afrimartonlinemarket@gmail.com',
                     [email],
                     fail_silently=False
                 )
@@ -125,7 +125,7 @@ def forgot_password(request):
                     "Password reset code",  # subject
                     f"Hello, you are requesting to reset your password on Afrimart . Use this code to confirm your identity as email owner{code}",
                     # message
-                    'afrimmartonlinemarket@gmail.com',
+                    'afrimartonlinemarket@gmail.com',
                     [request.POST['email']],
                     fail_silently=False
                 )
@@ -154,7 +154,7 @@ def resetpassword(request):
             "Password Reset Success",  # subject
             f"Hello {user.fist_name} your password has been succesfully reset. Reach out to us on this email in case of any troubles or worries",
             # message
-            'afrimmartonlinemarket@gmail.com',
+            'afrimartonlinemarket@gmail.com',
             [email],
             fail_silently=False
         )
