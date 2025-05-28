@@ -43,11 +43,7 @@
 
 <body class="bg-gray-100">
     
-  {% if error %}
-    <script>
-      alert("{{ error }}");
-    </script>
-  {% endif %}
+  
 
 
     <div class="min-h-screen flex items-center justify-center p-4" id="maindiv">
@@ -204,6 +200,11 @@
             Back to Home
           </button>
       </a>
+      {% if error %}
+        <script>
+          alert("{{ error }}");
+        </script>
+      {% endif %}
     
       <script>
         document.getElementById('registerForm').addEventListener('submit', function(e) {

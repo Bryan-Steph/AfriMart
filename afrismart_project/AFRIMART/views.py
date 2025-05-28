@@ -15,23 +15,27 @@ def Afrimarthome(request):#home page
 
 def verifyemail(request):
     if request.method == 'POST':
+        print('post')
         try:
             destination=reverse('createshop')
-            session_data=request.session.get('registrationcode')
+            session_data=request.session['registrationcode']
             email=session_data['email']
             password=session_data['password']
             phone=session_data['phone']
             full_name=session_data['fullname']
             code=session_data['code']
+            # print('code')
 
-            if request.POST['code']:
+            if request.POST['code']==code:
+                print("code is correct")
                 user=User.objects.create_user(
                     email=email,
                     password=password,
                     username=f"{full_name}_{email}",
                     first_name=full_name
                 )
-                Profile.object.create(
+                print("user created")
+                Profile.objects.create(
                     user=user,
                     Phone=phone
                 )
@@ -58,10 +62,12 @@ def Afrimartaccountcreation(request):
         fullname=request.POST['fullname']
         try:
             User.objects.get(email=email)
-            return render(request, "registration.html" , {"warning": "A User already exists with this account"})
+            print("exist")
+            return render(request, "registration.html" , {"warning": "A User already exists with this email account"})
         except:
-            code=generate_email_comfirmation_code()
             try:
+                code = generate_email_comfirmation_code()
+                print(email)
                 send_mail(
                     "Verification Code to Complete account registration",  # subject
                     f"Hello, you've started Your account Creation on AfriMart online market Complete your registration by copying and pasting this secrete code {code}",  # message
@@ -76,6 +82,7 @@ def Afrimartaccountcreation(request):
                     "fullname":fullname,
                     "code":code
                 }
+                print("code sent")
                 return redirect('mailverification')
             except:
                 return render(request, "registration.html", {"error":"Could not send email, ensure your email exist and try again"})
@@ -99,6 +106,60 @@ def Afrimartlogin(request):#login page
         
             
     return render(request, "login.html")
+
+def forgot_password(request):
+    if request.method=='POST':
+        try:
+            resset=request.session['ressetcode']
+            code=request.POST['code']
+            if code==resset['code']:
+                request.session['validcode'] = True
+                return redirect('resetpassword')
+            else:
+                return render(request, "verification_code.html", {"warning":"The code you entered is incorrect"})
+        except:
+            try:
+                User.objects.get(email=request.POST['email'])
+                code=generate_email_comfirmation_code()
+                send_mail(
+                    "Password reset code",  # subject
+                    f"Hello, you are requesting to reset your password on Afrimart . Use this code to confirm your identity as email owner{code}",
+                    # message
+                    'afrimmartonlinemarket@gmail.com',
+                    [request.POST['email']],
+                    fail_silently=False
+                )
+                request.session['ressetcode']={
+                    "code":code,
+                    "email":request.POST['email']
+                }
+                return render(request, "verification_code.html")
+            except:
+                render(request,"forgot_password.html",{"warning":'No account exists with this email'})
+    return render(request,"forgot_password.html")
+
+
+def resetpassword(request):
+    try:
+        if request.session['validcode'] != True:
+            return HttpResponse("You are not authorized on this page")
+    except:
+        return HttpResponse("You are not authorized on this page")
+    if request.method=='POST':
+        reset=request.session['ressetcode']
+        email=reset['emai']
+        user=User.objects.get(email=email)
+        user.set_password(request.POST['password'])
+        send_mail(
+            "Password Reset Success",  # subject
+            f"Hello {user.fist_name} your password has been succesfully reset. Reach out to us on this email in case of any troubles or worries",
+            # message
+            'afrimmartonlinemarket@gmail.com',
+            [email],
+            fail_silently=False
+        )
+        request.session['validcode'] = False
+    return render(request, "ressetpassword.html")
 
 def Afrimartcreateshop(request):
     if not request.user.is_authenticated:#ensuring user is logged in

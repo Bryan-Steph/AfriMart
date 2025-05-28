@@ -4,15 +4,20 @@
     position:fixed;
     left: 50%;
     top:50%;
-    transform: translate(-50, -50);
-    border:1px gray solid;
+    transform: translate(-50%, -50%);
+    border:1px rgb(81, 70, 70) solid;
     box-shadow: 5px 5px 10px rgb(237, 234, 234);
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .inputz{
-    width: 90%;
+    width: 80%;
     border-radius: 5px;
     padding: 4px;
     margin: auto;
+}
+button{
+    width:90%
 }
 
