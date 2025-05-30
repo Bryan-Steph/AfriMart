@@ -7,26 +7,10 @@
   <title>AfriMart - Cameroon's Online Market</title>
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- Custom CSS -->
   <link href="{% static 'src/output.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'src/input.css' %}">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#10B981',  // Emerald green
-            secondary: '#3B82F6', // Blue
-            accent: '#000',   // Amber
-            dark: '#1F2937',     // Dark gray
-            light: '#F9FAFB'     // Light gray
-          }
-        }
-      }
-    }
-  </script>
+
   <style>
     .auth-bg {
       background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("{% static 'src/assets/market-bg.jpg' %}");
