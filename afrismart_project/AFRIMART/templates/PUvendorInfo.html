@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+ {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="../static/src/assets/bootstrap-icons/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'src/input.css' %}">
+
+</head>
+<body>
+
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-bold">
+          <span class="text-emerald-500">Afri</span><span class="text-gray-800">Mart</span>
+        </a>
+                <!-- Add this inside the header > div.container > div.flex -->
+<a href="index.html" class="home-btn flex items-center mr-4 text-gray-70 hover:text-emerald-500 transition-colors">
+  <i class="bi bi-house-door text-xl font-bold">Home</i>
+</a>
+        <!-- Desktop Search -->
+        <div class="relative mx-4 flex-1 max-w-xl hidden md:block">
+          <input 
+            type="text" 
+            placeholder="Search vendors or products..." 
+            class="w-full py-2 px-4 pr-10 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+
+        <!-- Desktop User Icon -->
+        <button class="hidden md:block p-2 text-gray-600 hover:text-emerald-500 transition-colors">
+          <i class="bi bi-person-circle text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search (Hidden by default) -->
+    <div id="mobileSearch" class="hidden px-4 pb-3 md:hidden">
+      <div class="relative">
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          class="w-full py-2 px-4 pr-10 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
+        >
+        <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center mb-6">
+        <a href="#" class="text-2xl font-bold">
+          <span class="text-emerald-500">Afri</span><span class="text-gray-800">Mart</span>
+        </a>
+        <button id="closeMenuBtn" class="text-gray-600">
+          <i class="bi bi-x-lg text-2xl"></i>
+        </button>
+      </div>
+      
+      <nav class="space-y-4">
+        <a href="#" class="block py-2 text-gray-700 hover:text-emerald-500">Home</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-emerald-500">Marketplace</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-emerald-500">Become a Vendor</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-emerald-500">My Account</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Form Card -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <!-- Form Header -->
+      <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 text-black">
+        <h1 class="text-2xl font-bold">Vendor Information</h1>
+        <p class="opacity-90">Complete your profile to start selling</p>
+      </div>
+
+      <!-- Form Progress Steps -->
+      <div class="px-6 pt-4 flex justify-between border-b">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <span>Vendor Info</span>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <span>Categories</span>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <span>Products</span>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <span>Publish</span>
+        </div>
+      </div>
+
+      <!-- Form Content -->
+      <form id="vendorForm" class="p-6 space-y-6">
+        <!-- Personal Details Section -->
+        <section>
+          <h2 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+            <i class="bi bi-person-lines-fill mr-2 text-emerald-500"></i>
+            Personal Details
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Full Name -->
+            <div>
+              <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name*</label>
+              <input type="text" id="fullName" name="fullName" required 
+                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all">
+            </div>
+
+            <!-- WhatsApp -->
+            <div>
+              <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number*</label>
+              <div class="flex">
+                <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 bg-gray-50 text-gray-600">+237</span>
+                <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{9}" required 
+                       class="w-full px-4 py-2.5 border rounded-r-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all" 
+                       placeholder="6XXXXXXXX">
+              </div>
+            </div>
+
+            <!-- Additional Phone -->
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Additional Phone (Optional)</label>
+              <div class="flex">
+                <span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 bg-gray-50 text-gray-600">+237</span>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{9}" 
+                       class="w-full px-4 py-2.5 border rounded-r-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all" 
+                       placeholder="6XXXXXXXX">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Shop Details Section -->
+        <section>
+          <h2 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+            <i class="bi bi-shop mr-2 text-emerald-500"></i>
+            Shop Details
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Shop Name -->
+            <div>
+              <label for="shopName" class="block text-sm font-medium text-gray-700 mb-1">Shop Name*</label>
+              <input type="text" id="shopName" name="shopName" required 
+                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all">
+            </div>
+
+            <!-- Market Location -->
+            <div>
+              <label for="marketLocation" class="block text-sm font-medium text-gray-700 mb-1">Market Location*</label>
+              <select id="marketLocation" name="marketLocation" required 
+                      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all">
+                <option value="">Select Market</option>
+                <option>Main Market Bamenda</option>
+                <option>Nkwen Market</option>
+                <option>Food Market</option>
+                <option>Commercial Avenue</option>
+              </select>
+            </div>
+
+            <!-- Stall Number -->
+            <div>
+              <label for="stallNumber" class="block text-sm font-medium text-gray-700 mb-1">Stall/Shed Number</label>
+              <input type="text" id="stallNumber" name="stallNumber" 
+                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all">
+            </div>
+          </div>
+        </section>
+
+        <!-- Profile Customization -->
+        <section>
+          <h2 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+            <i class="bi bi-image mr-2 text-emerald-500"></i>
+            Profile Customization
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Profile Picture -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture*</label>
+              <div class="flex items-center space-x-4">
+                <div class="relative w-20 h-20 rounded-full overflow-hidden bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center">
+                  <img id="profilePreview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden">
+                  <i class="bi bi-camera text-2xl text-gray-400"></i>
+                </div>
+                <button type="button" onclick="document.getElementById('profileUpload').click()" 
+                        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 transition-colors">
+                  Upload Photo
+                </button>
+                <input type="file" id="profileUpload" name="profileImage" accept="image/*" class="hidden" required>
+              </div>
+            </div>
+
+            <!-- Shop Description -->
+            <div class="md:col-span-2">
+              <label for="shopDescription" class="block text-sm font-medium text-gray-700 mb-1">Shop Description*</label>
+              <textarea id="shopDescription" name="shopDescription" required maxlength="300" 
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all" 
+                        rows="3"></textarea>
+              <p class="text-xs text-gray-500 mt-1"><span id="charCount">0</span>/300 characters</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Form Actions -->
+        <div class="flex justify-end pt-4 border-t space-x-3">
+          <button type="button" id="saveBtn" class="px-6 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+            Save
+          </button>
+          <button type="submit" id="continueBtn" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center">
+            Continue <i class="bi bi-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
