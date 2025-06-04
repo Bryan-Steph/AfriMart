@@ -28,7 +28,7 @@
     <div class="min-h-screen flex items-center justify-center p-4">
       <div class="flex w-full max-w-6xl rounded-xl overflow-hidden shadow-2xl">
         <!-- Left Side - Image -->
-        <div class=" md:block hidden md:w-1/2 auth-bg text-white p-12 flex flex-col justify-center">
+        <div class=" md:block hidden md:w-1/2 auth-bg text-white p-12 flex-col justify-center">
           <h2 class="text-4xl font-bold mb-4">Welcome Back!</h2>
           <p class="text-lg mb-8">Login to access your AfriMart account and continue shopping.</p>
           <div class="flex items-center space-x-4">
@@ -69,7 +69,7 @@
             <div>
               <div class="flex justify-between items-center mb-1">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password *</label>
-                <a href="#" class="text-sm text-primary hover:underline">Forgot password?</a>
+                <a href="{% url 'forgotpassword' %}" class="text-sm text-primary hover:underline">Forgot password?</a>
               </div>
               <div class="relative">
                 <input 
