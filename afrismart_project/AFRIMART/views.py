@@ -86,7 +86,8 @@ def Afrimartaccountcreation(request):
                 print("code sent")
                 return redirect('mailverification')
             except:
-                return render(request, "registration.html", {"error": "Could not send email, ensure your email exist and try again"})
+                return render(request, "registration.html",
+                              {"error": "Could not send email, ensure your email exist and try again"})
     return render(request, "registration.html")
 
 
