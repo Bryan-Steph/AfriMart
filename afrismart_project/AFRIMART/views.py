@@ -71,11 +71,11 @@ def Afrimartaccountcreation(request):
                 send_mail(
                     "Verification Code to Complete account registration",  # subject
                     f"Hello, you've started Your account Creation on AfriMart online market Complete your registration by copying and pasting this secrete code {code}",
-                    # message
                     'afrimartonlinemarket@gmail.com',
                     [email],
                     fail_silently=False
                 )
+                print('mail')
                 request.session['registrationcode'] = {
                     "email": email,
                     "password": password,
@@ -124,12 +124,13 @@ def forgot_password(request):
         except:
             print([i.email for i in User.objects.all()])
             try:
+                print(request.POST['email'])
                 User.objects.get(email=request.POST['email'])
-
+                print(request.POST['email'])
                 code = generate_email_comfirmation_code()
                 send_mail(
                     "Password reset code",  # subject
-                    f"Hello, you are requesting to reset your password on Afrimart . Use this code to confirm your identity as email owner{code}",
+                    f"Hello, you are requesting to reset your password on Afrimart . Use this code to confirm your identity as email owner {code}",
                     'afrimartonlinemarket@gmail.com',
                     [request.POST['email']],
                     fail_silently=False
