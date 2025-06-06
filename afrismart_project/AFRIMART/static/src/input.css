@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-#youmake{
-  margin-top: 30px;
-  background-color: red;
-}
 /* Base Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
