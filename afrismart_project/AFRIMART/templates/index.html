@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AfriMart - Cameroon's Online Market</title>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href=" {% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
   <!-- Custom CSS -->
@@ -42,7 +44,9 @@
       </div>
     </div>
   </div>
-    <img src="../static/src/assets/images/afrimart_logo.png" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+      <a href="{% url 'home' %}">
+            <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+      </a>
 
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16">

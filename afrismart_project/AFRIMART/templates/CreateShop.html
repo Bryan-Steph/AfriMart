@@ -5,6 +5,8 @@
         {% load static %}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AfriMart - Cameroon's Online Market</title>
+    <!-- Favicon -->
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href=" {% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
   <!-- Custom CSS -->
@@ -25,34 +27,25 @@
 <body class="bg-gray-50">
   <!-- Navigation Bar -->
   <header class="bg-white shadow-md sticky top-0 z-50">
- 
+          <a href="{% url 'home' %}">
+
     <img src="{% static 'src/assets/images/afrimart_logo.png'%}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+          </a>
 
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
-        <a href="#" class="text-2xl font-bold text-primary">
+        <a href="{% url 'home' %}" class="text-2xl font-bold text-primary">
            <img src="{% static 'src/assets/images/afrimart_logo.png'%}" class="w-[150px] hidden md:block" alt="">
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-8 mx-6">
-        <a href="{% url 'home' %}" class="nav-link">Home</a>
-          <a href="#" class="nav-link">Marketplace</a>
-          <div class="dropdown relative">
-            <button class="nav-link flex items-center">
-              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
-            </button>
-            <div class="dropdown-menu">
-              <a href="#" class="dropdown-item">Top Vendors</a>
-              <a href="#" class="dropdown-item">New Sellers</a>
-              <a href="#" class="dropdown-item">Become a Vendor</a>
-            </div>
-          </div>
-          <a href="#" class="nav-link">Storage Pools</a>
-          <a href="../templates/PUvendorInfo.html" class="nav-link">Our Impact</a>
-        </nav>
-
+       <a href="{% url 'home' %}">
+          <button class="flex  hidden md:block items-center space-x-2 hover:text-accent select-plan-btn py-3 px-6 border-2 border-white rounded-lg bg-gradient-to-r from-gray-800 to-primary-dark text-white font-medium hover:shadow-lg  transition-all duration-300">
+        <i class="bi bi-house-fill text-xl"></i>
+        <span class="text-black">Home</span>
+      </button>
+        </a>
+   
         <!-- Search Bar (Always Visible) -->
         <div class="relative mx-4 flex-1 max-w-xl">
           <input 
@@ -66,21 +59,14 @@
         </div>
 
         <!-- Action Icons (Always Visible) -->
-        <div class="flex items-center space-x-4">
-          <button id="compareBtn" class="nav-icon">
-            <i class="bi bi-arrow-left-right"></i>
-          </button>
+     <div class="flex items-center space-x-4">
           <button id="wishlistBtn" class="nav-icon relative">
-            <i class="bi bi-heart"></i>
+            <i class="bi bi-bell-fill"></i>
             <span class="nav-badge">0</span>
           </button>
-          <button id="cartBtn" class="nav-icon relative">
-            <i class="bi bi-cart3"></i>
-            <span class="nav-badge">0</span>
-          </button>
-          <button id="profileBtn" class="nav-icon">
-            <i class="bi bi-person"></i>
-          </button>
+          <button class="  flex items-center space-x-2 hover:text-white bg-black  py-2 px-3 border-2 border-white rounded-lg bg-gradient-to-r  to-primary-dark text-primary font-medium hover:shadow-lg  transition-all duration-300">
+        <i class="font-bold text-xl">MS</i>
+      </button>My Store
         </div>
 
         <!-- Mobile Menu Button -->
@@ -122,6 +108,10 @@
 
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-8">
+         <button class="flex  md:hidden  items-center space-x-2 hover:text-accent select-plan-btn py-3 px-6 border-2 border-white rounded-lg bg-gradient-to-r from-gray-800 to-primary-dark text-white font-medium hover:shadow-lg  transition-all duration-300">
+        <i class="bi bi-house-fill text-xl"></i>
+        <span class="text-black">Home</span>
+      </button>
     
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
       <!-- Progress Bar -->
@@ -218,96 +208,18 @@
     </div>
   </div>
 
-
-  <!-- Footer Section -->
-<footer class="bg-gray-900 text-white pt-12 pb-6">
-  <!-- Footer Content -->
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-      
-      <!-- Logo and About -->
-      <div class="footer-col">
-        <div class="flex items-center mb-4">
-          <span class="text-2xl font-bold">AfriMart</span>
-        </div>
-        <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
-        <div class="flex space-x-4">
-          <a href="#" class="text-gray-300 hover:text-white transition-colors">
-            <i class="bi bi-facebook text-xl"></i>
-          </a>
-          <a href="#" class="text-gray-300 hover:text-white transition-colors">
-            <i class="bi bi-twitter-x text-xl"></i>
-          </a>
-          <a href="#" class="text-gray-300 hover:text-white transition-colors">
-            <i class="bi bi-instagram text-xl"></i>
-          </a>
-          <a href="#" class="text-gray-300 hover:text-white transition-colors">
-            <i class="bi bi-whatsapp text-xl"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Quick Links -->
-      <div class="footer-col">
-        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
-        <ul class="space-y-2">
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
-        </ul>
-      </div>
-      
-      <!-- Customer Service -->
-      <div class="footer-col">
-        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
-        <ul class="space-y-2">
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
-          <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
-        </ul>
-      </div>
-      
-      <!-- Newsletter -->
-      <div class="footer-col">
-        <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
-        <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
-        <form class="flex">
-          <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
-          <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
-        </form>
-        
-        <!-- Payment Methods -->
-        <div class="mt-6">
-          <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
-          <div class="flex flex-wrap gap-2">
-            <img src="{% static 'src/assets/images/visalogo.jpeg' %}" alt="Visa" class="h-8">
-            <img src="{% static 'src/assets/images/mastercardLogo.png' %}" alt="Mastercard" class="h-8">
-            <img src="{% static 'src/assets/images/MTNlogo.jpeg' %}" alt="Mobile Money" class="h-8">
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Featured Image Banner -->
-    <!-- <div class="mb-8 rounded-lg overflow-hidden">
-      <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
-    </div> -->
-    
-    <!-- Copyright -->
-    <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-      <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
-      <div class="flex space-x-4">
-        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
-      </div>
-    </div>
+    <div class="container mx-auto px-4">
+    <p class="text-center text-gray-600 text-sm">
+      © <span id="current-year"></span> AfriMart. All rights reserved.
+    </p>
   </div>
-</footer>
+
+  <script>
+    // Auto-update copyright year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+  <!-- Footer Section -->
+
 
   <script>
     // File Upload Previews
