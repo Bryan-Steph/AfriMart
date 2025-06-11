@@ -13,7 +13,7 @@ function getCookie(name){//function used to get site cookies like the csrf_token
       }
       return cookieValue;
   }
-  function message(content){// this function will send ajax message to django backend
+  function ajaxsendform(content){// this function will send ajax message to django backend
     $.ajax(
         {type:'POST',
         url:window.location.href,

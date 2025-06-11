@@ -203,11 +203,25 @@ def PUvendorinfo(request, id=1):
             if vendor.user!=request.user:
                 return HttpResponse('You are not authorised to be on this page')
             else:
-                if request.method=='POST':
-                    Vendor.objects.create(
-
-                    )
+                is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+                if is_ajax:
+                    if request.method == 'POST':
+                        data = json.load(request).get('content')  # collecting message content
+                        print(data)
+                        Vendor.objects.create(
+                            user=request.user,
+                            Fullname=data['fullName'],
+                            Whatsapp_no=data['whatsapp'],
+                            Additional_phone=data['phone'],
+                            Shop_name=data['shopName'],
+                            Market_location=data['marketLocation'],
+                            Stall_number=data['stallNumber'],
+                            Shop_description=data['shopDescription'],
+                            Profile_picture=data['profileImage']
+                        )
+                        return JsonResponse({'done': 'done'})
                 return render(request, "PUvendorInfo.html")
         except:
             return HttpResponse('This page does not exist')
+
     # return render(request, "PUvendorInfo.html")

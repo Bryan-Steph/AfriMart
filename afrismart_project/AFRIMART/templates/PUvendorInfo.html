@@ -258,10 +258,10 @@
 
         <!-- Form Actions -->
         <div class="flex justify-end pt-4 border-t space-x-3">
-          <button type="button" id="saveBtn" class="px-6 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors" >
-            Save
+          <button type="button" id="saveBtn" class="px-6 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors bg-emerald-500" onclick="saveForm(event)">
+            Save 
           </button>
-          <button type="submit" id="continueBtn" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center">
+          <button type="submit" id="continueBtn" class="px-6 py-2.5  hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center" disabled>
             Continue <i class="bi bi-arrow-right ml-2"></i>
           </button>
         </div>
@@ -326,11 +326,36 @@
   
   </script>
 
-  <script src="script.js"></script>
   <script src="{% static 'src/assets/script.js' %}"></script>
   <script src="{% static 'src/assets/jquery 3.js' %}"></script>
   <script src="{% static 'src/assets/ajaxsubmition.js' %}"></script>
   <script>
+    function saveForm(event){
+      event.preventDefault();
+      if (!document.getElementById('vendorForm').checkValidity()){
+        alert("Fill the form correctly");
+        return 0;
+      }
+      var content={
+        "fullName": document.getElementById("fullName").value,
+        "whatsapp": document.getElementById("whatsapp").value,
+        "phone": document.getElementById("phone").value,
+        "shopName": document.getElementById("shopName").value,
+        "marketLocation": document.getElementById("marketLocation").value,
+        "stallNumber": document.getElementById("stallNumber").value,
+        "shopDescription": document.getElementById("shopDescription").value,
+        "profileImage": document.getElementById("profileUpload").files[0]
+      }
+      ajaxsendform(content);
+      document.getElementById('saveBtn').disabled=true;
+      document.getElementById('saveBtn').classList.remove('bg-emerald-500')
+      document.getElementById('continueBtn').disabled=false;
+      document.getElementById('continueBtn').classList.add('bg-emerald-500')
+      var elts= document.getElementById('vendorForm').elements
+      elts.forEach((elt)=>{
+        elt.disabled=true;
+      });
+    }
     
   </script>
 
