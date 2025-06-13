@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+    <!-- Favicon -->
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href=" {% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
+  <!-- Custom CSS -->
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'src/input.css' %}">
+
+
+  <style>
+    /* Custom Styles */
+    .vendor-card {
+      transition: all 0.3s ease;
+    }
+    
+    .vendor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+    }
+    
+    .vendor-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .gold-badge {
+      background: linear-gradient(135deg, #FFD700, #D4AF37);
+      color: #000;
+    }
+    
+    .silver-badge {
+      background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+      color: #000;
+    }
+    
+    .bronze-badge {
+      background: linear-gradient(135deg, #CD7F32, #B87333);
+      color: #000;
+    }
+    
+    .verified-badge {
+      background-color: #34D399;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .category-chip {
+      transition: all 0.2s ease;
+    }
+    
+    .category-chip:hover {
+      background-color: #E5F7F0;
+      color: #34D399;
+    }
+    
+    .category-chip.active {
+      background-color: #34D399;
+      color: white;
+    }
+    
+    .rating-stars {
+      color: #F59E0B;
+    }
+    
+    .floating-shape {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    .vendor-rank {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 800;
+      background: linear-gradient(135deg, #34D399, #388276);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+  <!-- Location Bar -->
+<div class="bg-primary py-2 px-4 text-white">
+    <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+      <!-- Location & Contact -->
+      <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+        <a href="#" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-geo-alt mr-1"></i>
+          <span>Bamenda-Bambili</span>
+        </a>
+        <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-telephone mr-1"></i>
+          <span>683 558 004</span>
+        </a>
+      </div>
+  
+      <!-- Login/Register Links -->
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
+          Login
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+      <a href="{% url 'home' %}">
+            <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+      </a>
+
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-bold text-primary">
+           <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[150px] hidden md:block" alt="">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 mx-6">
+        <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Marketplace</a>
+          <div class="dropdown relative">
+            <button class="nav-link flex items-center">
+              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Top Vendors</a>
+              <a href="#" class="dropdown-item">New Sellers</a>
+              <a href="#" class="dropdown-item">Become a Vendor</a>
+            </div>
+          </div>
+          <a href="#" class="nav-link">Storage Pools</a>
+          <a href="../templates/PUvendorInfo.html" class="nav-link">Our Impact</a>
+        </nav>
+
+        <!-- Search Bar (Always Visible) -->
+        <div class="relative mx-4 flex-1 max-w-xl">
+          <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Search fresh products..." 
+            class="w-full py-2 px-4 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Action Icons (Always Visible) -->
+        <div class="flex items-center space-x-4">
+          <button id="compareBtn" class="nav-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+          <button id="wishlistBtn" class="nav-icon relative">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="cartBtn" class="nav-icon relative">
+            <i class="bi bi-cart3"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="profileBtn" class="nav-icon">
+            <i class="bi bi-person"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu (Slides from right) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Marketplace</a>
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link flex justify-between items-center">
+            Vendors <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="mobile-dropdown-menu active">
+            <a href="#" class="mobile-dropdown-item">Top Vendors</a>
+            <a href="#" class="mobile-dropdown-item">New Sellers</a>
+            <a href="#" class="mobile-dropdown-item">Become a Vendor</a>
+          </div>
+        </div>
+        <a href="#" class="mobile-nav-link">Storage Pools</a>
+        <a href="#" class="mobile-nav-link">Our Impact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Nav Support Section -->
+<section class="nav-support bg-primary text-white py-2 px-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- Sidebar Toggle -->
+      <button id="sidebarToggle" class="flex items-center space-x-2 hover:text-accent transition-colors">
+        <i class="bi bi-list text-xl"></i>
+        <span>Menu</span>
+      </button>
+  
+      <!-- Categories Dropdown -->
+      <div class="categories-dropdown relative  ">
+        <button id="categoriesBtn" class="w-full sm:w-auto flex items-center justify-between space-x-2 hover:text-black transition-colors px-3 py-1  rounded">
+          <i class="bi bi-grid-fill"></i>
+          <span>All Categories</span>
+          <i class="bi bi-chevron-down text-xs"></i>
+        </button>
+        <div id="categoriesMenu" class="categories-menu">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+            <a href="#" class="category-item">
+              <i class="bi bi-tshirt"></i>
+              <span>Fashion & Accessories</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-bag"></i>
+              <span>Bags & Wallets</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-shoe-prints"></i>
+              <span>Shoes</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-basket"></i>
+              <span>Fresh Groceries</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-phone"></i>
+              <span>Electronics</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-house-door"></i>
+              <span>Home & Living</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-book"></i>
+              <span>Books & Stationery</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-controller"></i>
+              <span>Toys & Games</span>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Deals & Promotions -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-percent"></i>
+        <span>Deals & Promotions</span>
+      </a>
+  
+      <!-- Make Product Visible -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-megaphone"></i>
+        <span>Make Your Product Visible</span>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3>Quick Links</h3>
+      <button id="closeSidebar"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="{% url 'createshop' %}" class="sidebar-link">
+        <i class="bi bi-shop"></i>
+        <span>Create Shop</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-plus-circle"></i>
+        <span>Shop Items</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-map"></i>
+        <span>Maps</span>
+      </a>
+    </nav>
+  </div>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>>
+  <!-- Top Vendors Page Content -->
+  <section class="relative overflow-hidden">
+    <!-- Floating decorative shapes -->
+    <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary bg-opacity-10 floating-shape hidden lg:block"></div>
+    
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-dark mb-6">
+          Meet Bamenda's <span class="text-primary">Top Vendors</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          Discover the most trusted and highly-rated local vendors on AfriMart. These entrepreneurs are transforming commerce in our community.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button class="category-chip active px-4 py-2 rounded-full bg-primary text-white font-medium">
+            All Vendors
+          </button>
+          <button class="category-chip px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium hover:border-primary hover:text-primary">
+            Fashion
+          </button>
+          <button class="category-chip px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium hover:border-primary hover:text-primary">
+            Electronics
+          </button>
+          <button class="category-chip px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium hover:border-primary hover:text-primary">
+            Food & Groceries
+          </button>
+          <button class="category-chip px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium hover:border-primary hover:text-primary">
+            Crafts
+          </button>
+          <button class="category-chip px-4 py-2 rounded-full border border-gray-300 text-gray-700 font-medium hover:border-primary hover:text-primary">
+            Services
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Rated Vendors Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold text-dark">
+          <i class="bi bi-trophy-fill text-yellow-500 mr-2"></i>
+          Top Rated Vendors
+        </h2>
+        <a href="#" class="text-primary font-medium flex items-center">
+          View All <i class="bi bi-chevron-right ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Vendor 1 - Gold Badge -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden relative">
+          <span class="vendor-badge gold-badge">
+            <i class="bi bi-trophy-fill mr-1"></i> Top Seller
+          </span>
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="tv1.jpeg" alt="Amina's Fashion House" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-dark mb-1">Amina's Fashion House</h3>
+                <p class="text-gray-600 flex items-center">
+                  <i class="bi bi-geo-alt-fill text-sm mr-1"></i>
+                  Bamenda, Nkwen
+                </p>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-bold vendor-rank">1</div>
+              </div>
+            </div>
+            <div class="flex items-center mb-4">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <span class="text-sm text-gray-600">142 Reviews</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Specializing in traditional African attire and modern fashion blends. Custom designs available.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Tailoring</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">African Prints</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Custom Designs</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified Vendor
+              </span>
+              <a href="#" class="text-primary font-medium text-sm flex items-center">
+                Visit Shop <i class="bi bi-arrow-right-short ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vendor 2 - Silver Badge -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden relative">
+          <span class="vendor-badge silver-badge">
+            <i class="bi bi-award-fill mr-1"></i> Popular
+          </span>
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="tv2.jpeg" alt="Bambili Electronics" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-dark mb-1">Bambili Electronics</h3>
+                <p class="text-gray-600 flex items-center">
+                  <i class="bi bi-geo-alt-fill text-sm mr-1"></i>
+                  Bamenda, Bambili
+                </p>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-bold vendor-rank">2</div>
+              </div>
+            </div>
+            <div class="flex items-center mb-4">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+              </div>
+              <span class="text-sm text-gray-600">98 Reviews</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Your one-stop shop for quality electronics, repairs, and accessories at affordable prices.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Repairs</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Phones</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Accessories</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified Vendor
+              </span>
+              <a href="#" class="text-primary font-medium text-sm flex items-center">
+                Visit Shop <i class="bi bi-arrow-right-short ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vendor 3 - Bronze Badge -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden relative">
+          <span class="vendor-badge bronze-badge">
+            <i class="bi bi-patch-check-fill mr-1"></i> Rising Star
+          </span>
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="tv3.jpeg" alt="Mankon Fresh Produce" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-dark mb-1">Mankon Fresh Produce</h3>
+                <p class="text-gray-600 flex items-center">
+                  <i class="bi bi-geo-alt-fill text-sm mr-1"></i>
+                  Bamenda, Mankon
+                </p>
+              </div>
+              <div class="text-right">
+                <div class="text-3xl font-bold vendor-rank">3</div>
+              </div>
+            </div>
+            <div class="flex items-center mb-4">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+              </div>
+              <span class="text-sm text-gray-600">76 Reviews</span>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Farm-fresh fruits, vegetables, and local staples delivered straight from our fields to your home.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Organic</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Farm Fresh</span>
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded">Delivery</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified Vendor
+              </span>
+              <a href="#" class="text-primary font-medium text-sm flex items-center">
+                Visit Shop <i class="bi bi-arrow-right-short ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vendors in Your Area Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold text-dark">
+          <i class="bi bi-geo-alt-fill text-primary mr-2"></i>
+          Vendors in Your Area (Bambili)
+        </h2>
+        <a href="#" class="text-primary font-medium flex items-center">
+          View All <i class="bi bi-chevron-right ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Local Vendor 1 -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-40 bg-gray-200 relative overflow-hidden">
+            <img src="bt.jpeg" alt="Bambili Tailors" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-dark mb-1">Bambili Tailors</h3>
+            <p class="text-gray-600 text-sm mb-3 flex items-center">
+              <i class="bi bi-geo-alt-fill text-xs mr-1"></i>
+              0.8km from you
+            </p>
+            <div class="flex items-center mb-3">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+              </div>
+              <span class="text-xs text-gray-600">45 Reviews</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+              <a href="#" class="text-primary text-sm font-medium">View</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Local Vendor 2 -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-40 bg-gray-200 relative overflow-hidden">
+            <img src="bb.jpeg" alt="Bambili Beauty" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-dark mb-1">Bambili Beauty</h3>
+            <p class="text-gray-600 text-sm mb-3 flex items-center">
+              <i class="bi bi-geo-alt-fill text-xs mr-1"></i>
+              1.2km from you
+            </p>
+            <div class="flex items-center mb-3">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <span class="text-xs text-gray-600">68 Reviews</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+              <a href="#" class="text-primary text-sm font-medium">View</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Local Vendor 3 -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-40 bg-gray-200 relative overflow-hidden">
+            <img src="btech.jpeg" alt="Bambili Tech" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-dark mb-1">Bambili Tech</h3>
+            <p class="text-gray-600 text-sm mb-3 flex items-center">
+              <i class="bi bi-geo-alt-fill text-xs mr-1"></i>
+              0.5km from you
+            </p>
+            <div class="flex items-center mb-3">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+              </div>
+              <span class="text-xs text-gray-600">32 Reviews</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+              <a href="#" class="text-primary text-sm font-medium">View</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Local Vendor 4 -->
+        <div class="vendor-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-40 bg-gray-200 relative overflow-hidden">
+            <img src="bc.jpeg" alt="Bambili Crafts" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-dark mb-1">Bambili Crafts</h3>
+            <p class="text-gray-600 text-sm mb-3 flex items-center">
+              <i class="bi bi-geo-alt-fill text-xs mr-1"></i>
+              1.5km from you
+            </p>
+            <div class="flex items-center mb-3">
+              <div class="rating-stars flex mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+              </div>
+              <span class="text-xs text-gray-600">54 Reviews</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="verified-badge text-xs">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+              <a href="#" class="text-primary text-sm font-medium">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Categories Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-dark mb-4">Most Searched Categories</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Discover popular product categories that Bamenda shoppers are searching for
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <!-- Category 1 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-card h-48">
+          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fashion" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-1">Fashion</h3>
+              <p class="text-white text-opacity-90 text-sm">Traditional & modern clothing</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition">
+            <a href="#" class="text-white font-medium px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-dark transition">
+              Explore
+            </a>
+          </div>
+        </div>
+        
+        <!-- Category 2 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-card h-48">
+          <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Electronics" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-1">Electronics</h3>
+              <p class="text-white text-opacity-90 text-sm">Devices & accessories</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition">
+            <a href="#" class="text-white font-medium px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-dark transition">
+              Explore
+            </a>
+          </div>
+        </div>
+        
+        <!-- Category 3 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-card h-48">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Food & Groceries" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-1">Food & Groceries</h3>
+              <p class="text-white text-opacity-90 text-sm">Fresh local produce</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition">
+            <a href="#" class="text-white font-medium px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-dark transition">
+              Explore
+            </a>
+          </div>
+        </div>
+        
+        <!-- Category 4 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-card h-48">
+          <img src="https://images.unsplash.com/photo-1581349485608-9469926a8e5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fabrics & Textiles" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-1">Fabrics & Textiles</h3>
+              <p class="text-white text-opacity-90 text-sm">Quality African prints</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition">
+            <a href="#" class="text-white font-medium px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-dark transition">
+              Explore
+            </a>
+          </div>
+        </div>
+        
+        <!-- Category 5 -->
+        <div class="group relative overflow-hidden rounded-xl shadow-card h-48">
+          <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Home & Living" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-1">Home & Living</h3>
+              <p class="text-white text-opacity-90 text-sm">Furniture & decor</p>
+            </div>
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition">
+            <a href="#" class="text-white font-medium px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-dark transition">
+              Explore
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="#" class="inline-flex items-center text-primary font-medium">
+          See More Categories <i class="bi bi-chevron-down ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-6">Ready to Join Our Community?</h2>
+      <p class="text-white text-opacity-90 text-xl mb-8 max-w-2xl mx-auto">
+        Whether you're a vendor looking to grow your business or a customer wanting to support local, we'd love to have you.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">
+          Become a Vendor
+        </a>
+        <a href="#" class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition">
+          Shop Local Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Category chip selection
+      const categoryChips = document.querySelectorAll('.category-chip');
+      
+      categoryChips.forEach(chip => {
+        chip.addEventListener('click', function() {
+          categoryChips.forEach(c => c.classList.remove('active', 'bg-primary', 'text-white'));
+          this.classList.add('active', 'bg-primary', 'text-white');
+          
+          // In a real implementation, this would filter the vendors
+          console.log(`Filtering by: ${this.textContent.trim()}`);
+        });
+      });
+      
+      // Vendor card hover effect
+      const vendorCards = document.querySelectorAll('.vendor-card');
+      
+      vendorCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.12)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+          this.style.boxShadow = '';
+        });
+      });
+    });
+  </script>
+  <script src="{% static 'src/assets/script.js' %}"></script>
+
+</body>
+</html>

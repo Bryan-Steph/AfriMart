@@ -18,6 +18,9 @@ urlpatterns = [
     path("approvedvendor/",views.Afrimartapprovedvendor, name="approvedvendor"),
     path('vendordashboard/',views.vendordashboard, name="dashboard"),
     path('PUvendorinfo/<int:id>/', views.PUvendorinfo, name="PUinfo"),
-    path("market/", views.marketplace, name="market")
+    path("market/", views.marketplace, name="market"),
+    path("PUCathegory/", views.productCategory, name="category"),
+    path("Topvendors/", views.topvendors, name="topvendors"),
+    path("afrimart_impact/",views.afrimartimpact, name="impact")
     
 ]

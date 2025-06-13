@@ -226,3 +226,12 @@ def PUvendorinfo(request, id):
 
 def marketplace(request):
     return render(request, "Marketplace.html")
+
+def productCategory(request):
+    return render(request, "PUCategory.html")
+
+def topvendors(request):
+    return render(request, "TopVendors.html")
+
+def afrimartimpact(request):
+    return render(request, "OurImpact.html")

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+    <!-- Favicon -->
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href=" {% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
+  <!-- Custom CSS -->
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'src/input.css' %}">
+
+  <style>
+    /* Custom Styles */
+    .impact-card {
+      transition: all 0.3s ease;
+    }
+    
+    .impact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+    }
+    
+    .stat-number {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 800;
+      background: linear-gradient(135deg, #34D399, #388276);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: scale(1.02);
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #34D399;
+      border: 4px solid #E5F7F0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 29px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #E5E7EB;
+    }
+    
+    .partner-logo {
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .partner-logo:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+    
+    .animated-counter {
+      transition: all 1s ease-out;
+    }
+    
+    .impact-video {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .floating-shape {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
+    .floating-shape-2 {
+      animation: float 7s ease-in-out infinite 1s;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+
+<body class="bg-gray-50">
+  <!-- Navigation Bar -->
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+  <!-- Location Bar -->
+<div class="bg-primary py-2 px-4 text-white">
+    <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+      <!-- Location & Contact -->
+      <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+        <a href="#" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-geo-alt mr-1"></i>
+          <span>Bamenda-Bambili</span>
+        </a>
+        <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-telephone mr-1"></i>
+          <span>683 558 004</span>
+        </a>
+      </div>
+  
+      <!-- Login/Register Links -->
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
+          Login
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+      <a href="{% url 'home' %}">
+            <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+      </a>
+
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="text-2xl font-bold text-primary">
+           <img src="../static/src/assets/images/afrimart_logo.png" class="w-[150px] hidden md:block" alt="">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 mx-6">
+        <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Marketplace</a>
+          <div class="dropdown relative">
+            <button class="nav-link flex items-center">
+              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Top Vendors</a>
+              <a href="#" class="dropdown-item">New Sellers</a>
+              <a href="#" class="dropdown-item">Become a Vendor</a>
+            </div>
+          </div>
+          <a href="#" class="nav-link">Storage Pools</a>
+          <a href="../templates/PUvendorInfo.html" class="nav-link active">Our Impact</a>
+        </nav>
+
+        <!-- Search Bar (Always Visible) -->
+        <div class="relative mx-4 flex-1 max-w-xl">
+          <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Search fresh products..." 
+            class="w-full py-2 px-4 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Action Icons (Always Visible) -->
+        <div class="flex items-center space-x-4">
+          <button id="compareBtn" class="nav-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+          <button id="wishlistBtn" class="nav-icon relative">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="cartBtn" class="nav-icon relative">
+            <i class="bi bi-cart3"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="profileBtn" class="nav-icon">
+            <i class="bi bi-person"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu (Slides from right) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Marketplace</a>
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link flex justify-between items-center">
+            Vendors <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="mobile-dropdown-menu">
+            <a href="#" class="mobile-dropdown-item">Top Vendors</a>
+            <a href="#" class="mobile-dropdown-item">New Sellers</a>
+            <a href="#" class="mobile-dropdown-item">Become a Vendor</a>
+          </div>
+        </div>
+        <a href="#" class="mobile-nav-link">Storage Pools</a>
+        <a href="#" class="mobile-nav-link">Our Impact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Nav Support Section -->
+<section class="nav-support bg-primary text-white py-2 px-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- Sidebar Toggle -->
+      <button id="sidebarToggle" class="flex items-center space-x-2 hover:text-accent transition-colors">
+        <i class="bi bi-list text-xl"></i>
+        <span>Menu</span>
+      </button>
+  
+      <!-- Categories Dropdown -->
+      <div class="categories-dropdown relative  ">
+        <button id="categoriesBtn" class="w-full sm:w-auto flex items-center justify-between space-x-2 hover:text-black transition-colors px-3 py-1  rounded">
+          <i class="bi bi-grid-fill"></i>
+          <span>All Categories</span>
+          <i class="bi bi-chevron-down text-xs"></i>
+        </button>
+        <div id="categoriesMenu" class="categories-menu">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+            <a href="#" class="category-item">
+              <i class="bi bi-tshirt"></i>
+              <span>Fashion & Accessories</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-bag"></i>
+              <span>Bags & Wallets</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-shoe-prints"></i>
+              <span>Shoes</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-basket"></i>
+              <span>Fresh Groceries</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-phone"></i>
+              <span>Electronics</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-house-door"></i>
+              <span>Home & Living</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-book"></i>
+              <span>Books & Stationery</span>
+            </a>
+            <a href="#" class="category-item">
+              <i class="bi bi-controller"></i>
+              <span>Toys & Games</span>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Deals & Promotions -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-percent"></i>
+        <span>Deals & Promotions</span>
+      </a>
+  
+      <!-- Make Product Visible -->
+      <a href="#" class="flex items-center space-x-2 hover:text-black transition-colors">
+        <i class="bi bi-megaphone"></i>
+        <span>Make Your Product Visible</span>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3>Quick Links</h3>
+      <button id="closeSidebar"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="{% url 'createshop' %}" class="sidebar-link">
+        <i class="bi bi-shop"></i>
+        <span>Create Shop</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-plus-circle"></i>
+        <span>Shop Items</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="bi bi-map"></i>
+        <span>Maps</span>
+      </a>
+    </nav>
+  </div>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- Impact Page Content -->
+  <section class="relative overflow-hidden">
+    <!-- Floating decorative shapes -->
+    <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary bg-opacity-10 floating-shape hidden lg:block"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 rounded-lg bg-secondary bg-opacity-10 floating-shape-2 hidden lg:block"></div>
+    
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-dark mb-6">
+          Empowering <span class="text-primary">Bamenda</span> Through Digital Commerce
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          AfriMart is transforming local commerce by connecting vendors with customers across the Northwest region. 
+          Discover how we're making an impact in our community.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#stats" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-500 transition">
+            See Our Impact
+          </a>
+          <a href="#stories" class="border border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition">
+            Vendor Stories
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Video Story Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2">
+          <div class="impact-video rounded-xl overflow-hidden relative">
+            <!-- Video placeholder with play button -->
+            <div class="w-full h-80 md:h-96 bg-gray-200 flex items-center justify-center">
+              <button class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary bg-opacity-90 text-white flex items-center justify-center hover:bg-opacity-100 transition">
+                <i class="bi bi-play-fill text-2xl md:text-3xl"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <h2 class="text-3xl font-bold text-dark mb-6">Transforming Local Commerce</h2>
+          <p class="text-gray-600 mb-6">
+            Watch how AfriMart is revolutionizing the way Bamenda shops and sells. Our platform brings the vibrant local market experience online while preserving the personal connections that make our community special.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 mt-1">
+                <i class="bi bi-check-circle-fill text-primary"></i>
+              </div>
+              <p class="ml-3 text-gray-700">
+                <span class="font-medium">Verified Vendor System</span> - Ensuring trust and safety for all transactions
+              </p>
+            </div>
+                <div class="flex items-start">
+              <div class="flex-shrink-0 mt-1">
+                <i class="bi bi-check-circle-fill text-primary"></i>
+              </div>
+              <p class="ml-3 text-gray-700">
+                <span class="font-medium">Digital Skills Training</span> - Helping vendors thrive in the online marketplace
+              </p>
+            </div>
+            <div class="flex items-start">
+              <div class="flex-shrink-0 mt-1">
+                <i class="bi bi-check-circle-fill text-primary"></i>
+              </div>
+              <p class="ml-3 text-gray-700">
+                <span class="font-medium">Local Delivery Network</span> - Supporting neighborhood couriers and pickup points
+              </p>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats Section -->
+  <section id="stats" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-dark mb-4">Our Impact in Numbers</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Since our launch, AfriMart has created measurable change for local vendors and the Bamenda economy.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Stat 1 -->
+        <div class="impact-card bg-white rounded-xl shadow-card p-8 text-center">
+          <div class="text-5xl md:text-6xl stat-number mb-4" data-count="5">0</div>
+          <h3 class="text-xl font-semibold text-dark mb-2">Local Vendors Empowered</h3>
+          <p class="text-gray-600">Small businesses now reaching customers across Bamenda</p>
+        </div>
+        
+        <!-- Stat 2 -->
+        <div class="impact-card bg-white rounded-xl shadow-card p-8 text-center">
+          <div class="text-5xl md:text-6xl stat-number mb-4" data-count="13">0</div>
+          <h3 class="text-xl font-semibold text-dark mb-2">Products Listed</h3>
+          <p class="text-gray-600">From traditional crafts to everyday essentials</p>
+        </div>
+        
+        <!-- Stat 3 -->
+        <div class="impact-card bg-white rounded-xl shadow-card p-8 text-center">
+          <div class="text-5xl md:text-6xl stat-number mb-4" data-count="2.5 ">0%</div>
+          <h3 class="text-xl font-semibold text-dark mb-2">Increased Visibility</h3>
+          <p class="text-gray-600">Average sales growth for vendors after joining</p>
+        </div>
+        
+        <!-- Stat 4 -->
+        <div class="impact-card bg-white rounded-xl shadow-card p-8 text-center">
+          <div class="text-5xl md:text-6xl stat-number mb-4" data-count="0">0</div>
+          <h3 class="text-xl font-semibold text-dark mb-2">Neighborhoods Served</h3>
+          <p class="text-gray-600">Connecting communities across Bamenda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Vendor Stories Section -->
+  <section id="stories" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-dark mb-4">Success Stories From Our Vendors</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Hear directly from the local entrepreneurs who are growing their businesses with AfriMart.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Story 1 -->
+        <div class="testimonial-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="https://images.unsplash.com/hoto-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Sarah's Craft Shop" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                <img src="https://images.unsplashcom/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Sarah" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold text-dark">Sarah M.</h4>
+                <p class="text-sm text-gray-500">Bambili Crafts</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "AfriMart helped me reach customers across Bamenda. My traditional crafts business has grown by 120% since joining!"
+            </p>
+            <div class="flex items-center text-sm">
+              <div class="flex text-yellow-400 mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <span class="text-gray-500">Verified Vendor</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Story 2 -->
+        <div class="testimonial-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="John's Electronics" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                <img src="https://images.unsplashcom/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="John" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold text-dark">John T.</h4>
+                <p class="text-sm text-gray-500">Mankon Electronics</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "As a small electronics repair shop, AfriMart gave me the platform to offer my services to the whole city. Now I'm busier than ever!"
+            </p>
+            <div class="flex items-center text-sm">
+              <div class="flex text-yellow-400 mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+              </div>
+              <span class="text-gray-500">Verified Vendor</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Story 3 -->
+        <div class="testimonial-card bg-white rounded-xl shadow-card overflow-hidden">
+          <div class="h-48 bg-gray-200 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-158134985608-9469926a8e5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amina's Textiles" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                <img src="https://images.unsplash.com/photo1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amina" class="w-full h-full object-cover">
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold text-dark">Amina B.</h4>
+                <p class="text-sm text-gray-500">Nkwen Textiles</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "My fabric business was struggling until I joined AfriMart. Now I supply materials to tailors across Bamenda!"
+            </p>
+            <div class="flex items-center text-sm">
+              <div class="flex text-yellow-400 mr-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <span class="text-gray-500">Verified Vendor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Timeline -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-dark mb-4">Our Journey in Bamenda</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          From a small idea to a community-changing platform, see how AfriMart has grown.
+        </p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto relative timeline pl-16">
+        <!-- Timeline Item 1 -->
+        <div class="relative mb-12 timeline-item">
+          <div class="bg-white rounded-xl shadow-card p-6">
+            <div class="flex items-center mb-2">
+              <span class="bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">2022</span>
+            </div>
+            <h3 class="text-xl font-semibold text-dark mb-2">Bamenda Community Challenge</h3>
+            <p class="text-gray-600">
+              AfriMart was selected as a winning project in the Bamenda Community Challenge, receiving initial funding and mentorship to develop the platform.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Timeline Item 2 -->
+        <div class="relative mb-12 timeline-item">
+          <div class="bg-white rounded-xl shadow-card p-6">
+            <div class="flex items-center mb-2">
+              <span class="bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">Jan 2023</span>
+            </div>
+            <h3 class="text-xl font-semibold text-dark mb-2">First 50 Vendors Onboard</h3>
+            <p class="text-gray-600">
+              We launched our pilot program with 50 local vendors from across Bamenda, testing the platform with real users and gathering feedback.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Timeline Item 3 -->
+        <div class="relative mb-12 timeline-item">
+          <div class="bg-white rounded-xl shadow-card p-6">
+            <div class="flex items-center mb-2">
+              <span class="bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">Jun 2023</span>
+            </div>
+            <h3 class="text-xl font-semibold text-dark mb-2">Public Launch</h3>
+            <p class="text-gray-600">
+              AfriMart opened to all Bamenda vendors, with special training sessions to help local businesses get online.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Timeline Item 4 -->
+        <div class="relative timeline-item">
+          <div class="bg-white rounded-xl shadow-card p-6">
+            <div class="flex items-center mb-2">
+              <span class="bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">Today</span>
+            </div>
+            <h3 class="text-xl font-semibold text-dark mb-2">Growing Together</h3>
+            <p class="text-gray-600">
+              With over 125 vendors and thousands of products, AfriMart continues to expand while staying true to our mission of empowering local commerce.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <!-- <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-dark mb-4">Our Community Partners</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          AfriMart is proud to collaborate with these organizations to strengthen Bamenda's digital economy.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div class="flex items-center justify-center p-4">
+          <img src="https://via.placeholder.com/150x80?text=BCC" alt="Bamenda Community Challenge" class="partner-logo max-h-12">
+        </div>
+        <div class="flex items-center justify-center p-4">
+          <img src="https://via.placeholder.com/150x80?text=UBa" alt="University of Bamenda" class="partner-logo max-h-12">
+        </div>
+        <div class="flex items-center justify-center p-4">
+          <img src="https://via.placeholder.com/150x80?text=NW+Chamber" alt="NW Chamber of Commerce" class="partner-logo max-h-12">
+        </div>
+        <div class="flex items-center justify-center p-4">
+          <img src="https://via.placeholder.com/150x80?text=Youth+Tech" alt="Youth Tech Initiative" class="partner-logo max-h-12">
+        </div>
+        <div class="flex items-center justify-center p-4">
+          <img src="https://via.placeholder.com/150x80?text=Local+Gov" alt="Local Government" class="partner-logo max-h-12">
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-6">Join the AfriMart Community</h2>
+        <p class="text-white text-opacity-90 mb-8 text-xl">
+          Whether you're a vendor looking to grow your business or a customer wanting to support local, we'd love to have you.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">
+            Become a Vendor
+          </a>
+          <a href="#" class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition">
+            Shop Local Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white pt-12 pb-6">
+    <!-- Footer Content -->
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Logo and About -->
+        <div class="footer-col">
+          <div class="flex items-center mb-4">
+            <span class="text-2xl font-bold">AfriMart</span>
+          </div>
+          <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-facebook text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-twitter-x text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-whatsapp text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Customer Service -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+          <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
+            <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
+          </form>
+          
+          <!-- Payment Methods -->
+          <div class="mt-6">
+            <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
+            <div class="flex flex-wrap gap-2">
+              <img src="src/assets/images/MTNlogo.jpeg" alt="Mobile Money" class="h-full w-full">
+              <img src="src/assets/images/visalogo.jpeg" alt="Visa" class="h-8">
+              <img src="src/assets/images/mastercardLogo.png" alt="Mastercard" class="h-8">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Featured Image Banner -->
+      <!-- <div class="mb-8 rounded-lg overflow-hidden">
+        <img src="src/assets/images/hero2.jpg" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+      </div> -->
+      
+      <!-- Copyright -->
+      <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animated counters
+      const counters = document.querySelectorAll('.stat-number');
+      const speed = 200; // The lower the faster
+      
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        const increment = target / speed;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCounter, 1);
+        } else {
+          counter.innerText = target;
+        }
+        
+        function updateCounter() {
+          const count = +counter.innerText;
+          const increment = target / speed;
+          
+          if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(updateCounter, 1);
+          } else {
+            counter.innerText = target;
+          }
+        }
+      });
+      
+      // Video play button
+      const videoPlayBtn = document.querySelector('.impact-video button');
+      videoPlayBtn.addEventListener('click', function() {
+        // In a real implementation, this would open a modal with the video
+        alert('Video playback would start here in a full implementation');
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+  <script src="{% static 'src/assets/script.js' %}"></script>
+
+</body>
+</html>

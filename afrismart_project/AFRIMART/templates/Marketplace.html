@@ -151,7 +151,7 @@
   <div id="overlay" class="overlay"></div>
   <!-- Hero Section -->
 <!-- Category Navigation (unchanged, as you liked it) -->
-<nav class="category-nav">
+<nav class="category-nav md:ml-[170px]">
   <div class="category-container">
     <div class="category-scroller">
       <a href="#" class="category-link active">Fashion and wearables</a>
@@ -191,23 +191,24 @@
   
   <div class="flex flex-col lg:flex-row gap-6">
     <!-- Mobile Filter Overlay -->
-    <div id="mobileFilterOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
-      <div class="absolute right-0 top-0 h-full w-4/5 bg-white overflow-y-auto transform transition-transform duration-300 translate-x-full">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h3 class="font-semibold text-lg">Filters</h3>
-          <button id="closeMobileFilter" class="text-gray-500 hover:text-dark">
-            <i class="bi bi-x-lg text-xl"></i>
-          </button>
-        </div>
-        <div class="p-4">
-          <!-- Filter content will be inserted here from desktop filters -->
-        </div>
-        <div class="p-4 border-t border-gray-200 flex justify-between">
-          <button class="text-primary font-medium">Reset</button>
-          <button class="bg-primary text-white px-6 py-2 rounded hover:bg-emerald-600">Apply</button>
-        </div>
-      </div>
+    <!-- Mobile Filter Overlay -->
+<div id="mobileFilterOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
+  <div class="absolute right-0 top-0 h-full w-4/5 bg-white overflow-y-auto transform transition-transform duration-300 translate-x-full">
+    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+      <h3 class="font-semibold text-lg">Filters</h3>
+      <button id="closeMobileFilter" class="text-gray-500 hover:text-dark">
+        <i class="bi bi-x-lg text-xl"></i>
+      </button>
     </div>
+    <div class="p-4">
+      <!-- Filter content will be inserted here from desktop filters -->
+    </div>
+    <div class="p-4 border-t border-gray-200 flex justify-between">
+      <button class="text-primary font-medium">Reset</button>
+      <button class="bg-primary text-white px-6 py-2 rounded hover:bg-emerald-600">Apply</button>
+    </div>
+  </div>
+</div>
 
     <!-- Filters Section - Desktop -->
     <aside class="hidden lg:block w-72 flex-shrink-0">
@@ -672,124 +673,98 @@
   </div>
 </section>
 
-<!-- JavaScript for Functionality -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Mobile filter toggle
-  const filterToggle = document.getElementById('filterToggle');
-  const mobileFilterOverlay = document.getElementById('mobileFilterOverlay');
-  const closeMobileFilter = document.getElementById('closeMobileFilter');
-  
-  filterToggle.addEventListener('click', function() {
-    if (window.innerWidth < 1024) { // Only for mobile
-      // Clone desktop filters to mobile overlay
-      const desktopFilters = document.querySelector('.bg-white.rounded-lg.shadow').cloneNode(true);
-      const mobileFilterContent = mobileFilterOverlay.querySelector('.p-4');
-      mobileFilterContent.innerHTML = '';
-      mobileFilterContent.appendChild(desktopFilters);
+<!-- Footer Section -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+    <!-- Footer Content -->
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Logo and About -->
+        <div class="footer-col">
+          <div class="flex items-center mb-4">
+            <span class="text-2xl font-bold">AfriMart</span>
+          </div>
+          <p class="text-gray-300 mb-4">Your premier online marketplace for authentic African products and fresh local goods.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-facebook text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-twitter-x text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+              <i class="bi bi-whatsapp text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Marketplace</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Vendors</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Deals</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Customer Service -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Customer Service</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQs</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="footer-col">
+          <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+          <p class="text-gray-300 mb-4">Subscribe for updates on new products and special offers</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-800">
+            <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r font-medium">Subscribe</button>
+          </form>
+          
+          <!-- Payment Methods -->
+          <div class="mt-6">
+            <h4 class="text-sm font-semibold mb-2 text-gray-300">We Accept:</h4>
+            <div class="flex flex-wrap gap-2">
+             <img src="{% static 'src/assets/images/MTNlogo.jpeg' %}" alt="Mobile Money" class="h-8">
+              <img src="{% static 'src/assets/images/visalogo.jpeg' %}" alt="Visa" class="h-8">
+              <img src="{% static 'src/assets/images/mastercardLogo.png' %}" alt="Mastercard" class="h-8">
+            </div>
+          </div>
+        </div>
+      </div>
       
-      // Initialize accordions in mobile filters
-      initFilterAccordions(mobileFilterContent);
+      <!-- Featured Image Banner -->
+      <!-- <div class="mb-8 rounded-lg overflow-hidden">
+        <img src="{% static 'src/assets/images/hero2.jpg' %}" alt="African Marketplace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+      </div> -->
       
-      // Show mobile overlay
-      mobileFilterOverlay.classList.remove('hidden');
-      setTimeout(() => {
-        mobileFilterOverlay.querySelector('.absolute').classList.remove('translate-x-full');
-      }, 10);
-    }
-  });
+      <!-- Copyright -->
+      <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-2 md:mb-0">© 2025 AfriMart. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
   
-  closeMobileFilter.addEventListener('click', function() {
-    mobileFilterOverlay.querySelector('.absolute').classList.add('translate-x-full');
-    setTimeout(() => {
-      mobileFilterOverlay.classList.add('hidden');
-    }, 300);
-  });
-  
-  // Filter accordion functionality
-  function initFilterAccordions(container) {
-    const filterGroups = container.querySelectorAll('.filter-group');
-    
-    filterGroups.forEach(group => {
-      const header = group.querySelector('.filter-group-header');
-      const content = group.querySelector('.filter-group-content');
-      const icon = header.querySelector('i');
-      
-      // Initialize closed
-      content.style.display = 'none';
-      icon.classList.add('-rotate-90');
-      
-      header.addEventListener('click', function() {
-        if (content.style.display === 'none') {
-          content.style.display = 'block';
-          icon.classList.remove('-rotate-90');
-        } else {
-          content.style.display = 'none';
-          icon.classList.add('-rotate-90');
-        }
-      });
-    });
-  }
-  
-  // Initialize desktop filter accordions
-  initFilterAccordions(document);
-  
-  // Carousel functionality
-  const carouselTrack = document.querySelector('.carousel-track');
-  const carouselSlides = document.querySelectorAll('.carousel-slide');
-  const prevBtn = document.querySelector('.carousel-prev');
-  const nextBtn = document.querySelector('.carousel-next');
-  
-  let currentIndex = 0;
-  const slideWidth = carouselSlides[0].getBoundingClientRect().width;
-  
-  function updateCarousel() {
-    carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  }
-  
-  nextBtn.addEventListener('click', function() {
-    if (currentIndex < carouselSlides.length - 1) {
-      currentIndex++;
-      updateCarousel();
-    }
-  });
-  
-  prevBtn.addEventListener('click', function() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateCarousel();
-    }
-  });
-  
-  // Category navigation scroll behavior
-  const categoryLinks = document.querySelectorAll('.category-link');
-  const categoryScroller = document.querySelector('.category-scroller');
-  
-  categoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Remove active class from all links
-      categoryLinks.forEach(l => l.classList.remove('active'));
-      
-      // Add active class to clicked link
-      this.classList.add('active');
-      
-      // Center the active link in the scroller
-      const scrollerWidth = categoryScroller.offsetWidth;
-      const linkPosition = this.offsetLeft;
-      const linkWidth = this.offsetWidth;
-      
-      categoryScroller.scrollTo({
-        left: linkPosition - (scrollerWidth / 2) + (linkWidth / 2),
-        behavior: 'smooth'
-      });
-    });
-  });
-});
-</script>
 
-
+  <script src="{% static 'src/assets/Marketplace.js' %}"></script>
   <script src="{% static 'src/assets/script.js' %}"></script>
 </body>
 </html>
