@@ -39,6 +39,7 @@ def verifyemail(request):
                     user=user,
                     Phone=phone
                 )
+                login(request, user)
                 send_mail(
                     "Verification Code to Complete account registration",  # subject
                     f"Congratulations {full_name} you have completed you registration now, discover how to expand your market scope AfriMart Plateform. Visit {request.build_absolute_uri(destination)}",
@@ -177,13 +178,13 @@ def Afrimartcreateshop(request):
         return HttpResponse("You must be loggedin before creating a virtual shop")
     if request.method == 'POST':
         user = request.user
-        Shop.objects.create(
+        shop=Shop.objects.create(
             user=user,
             Photo=request.FILES['vendorPhoto'],
             Id_card=request.FILES['idCard'],
             Shop_proof=request.FILES['shopProof']
         )
-        return redirect('PUinfo', id=Shop.id)
+        return redirect('PUinfo', id=shop.id)
     return render(request, "CreateShop.html")
 
 
@@ -208,7 +209,7 @@ def PUvendorinfo(request, id):
                     if request.method == 'POST':
                         data = json.load(request).get('content')  # collecting message content
                         print(data)
-                        Vendor.objects.create(
+                        vendor = Vendor.objects.create(
                             user=request.user,
                             Fullname=data['fullName'],
                             Whatsapp_no=data['whatsapp'],
@@ -219,16 +220,35 @@ def PUvendorinfo(request, id):
                             Shop_description=data['shopDescription'],
                             Profile_picture=data['profileImage']
                         )
+                        print(vendor)
+                        print(vendor.values())
                         return JsonResponse({'done': 'done'})
-                return render(request, "PUvendorInfo.html")
+                return render(request, "PUvendorInfo.html",{"shopid":id})
         except:
             return HttpResponse('This page does not exist')
 
 def marketplace(request):
     return render(request, "Marketplace.html")
 
-def productCategory(request):
-    return render(request, "PUCategory.html")
+def productCategory(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        try:
+            vendor_shop = Shop.objects.get(id=id)
+            if vendor_shop.user!=request.user:
+                return HttpResponse('You are not authorised to be on this page')
+            else:
+                is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+                if is_ajax:
+                    if request.method == 'POST':
+                        data = json.load(request).get('content')  # collecting message content
+                        print(data)
+
+                return render(request, "PUCategory.html")
+        except:
+            return HttpResponse('This page does not exist')
+
 
 def topvendors(request):
     return render(request, "TopVendors.html")

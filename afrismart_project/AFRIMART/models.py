@@ -25,6 +25,6 @@ class Vendor(models.Model):
     Market_location=models.CharField(max_length=50, default='location')
     Stall_number=models.CharField(max_length=50, blank=True, null=True, default='stall')
     Shop_description=models.TextField(default='description')
-    Profile_picture=models.ImageField(null=True, blank=True)
+    Profile_picture=models.ImageField(null=True, blank=True, upload_to="VendorImage")
 
 # Create your models here.

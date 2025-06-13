@@ -623,6 +623,7 @@
       let slidesCount = 0;
       let currentTab = 'fashion';
       let categories = categoryData.fashion;
+      let category_dict={}
 
       // Initialize carousel
       function initCarousel() {
@@ -633,6 +634,25 @@
         setupEventListeners();
         updateSelectionUI();
       }
+      //adding categories for submisssion
+      function togllecathegory(event){
+        if (event.target.checked){
+          var parent=event.target.getAttribute('data-parentcategory')
+          try{
+            category_dict[parent].push(event.target.value);
+          }
+          catch{
+            category_dict[parent]=[event.target.value];
+          }
+          
+        }
+        else{
+          category_dict[parent].remove(event.target.value);
+        }
+        console.log(category_dict);
+      }
+
+
 
       // Render category cards
       function renderCategories() {
@@ -655,7 +675,10 @@
                           type="checkbox" 
                           class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
                           data-category="${category.id}"
-                          value="${sub.toLowerCase().replace(' ', '-')}"
+                          value="${sub}"
+                          data-parentcategory="${category.name}"
+                          onchange="togllecathegory(${event})"
+
                         >
                         <span>${sub}</span>
                       </label>

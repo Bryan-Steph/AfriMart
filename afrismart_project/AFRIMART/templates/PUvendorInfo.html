@@ -261,7 +261,7 @@
           <button type="button" id="saveBtn" class="px-6 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors bg-emerald-500" onclick="saveForm(event)">
             Save 
           </button>
-          <button type="submit" id="continueBtn" class="px-6 py-2.5  hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center" disabled>
+          <button type="submit" id="continueBtn" class="px-6 py-2.5  hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center" disabled onclick="event.preventDefault() windows.location.href=`{% url 'category' shopid %}`">
             Continue <i class="bi bi-arrow-right ml-2"></i>
           </button>
         </div>
