@@ -183,7 +183,7 @@ def Afrimartcreateshop(request):
             Id_card=request.FILES['idCard'],
             Shop_proof=request.FILES['shopProof']
         )
-        return render(request, "CreateShop.html", {"success": "success"})
+        return redirect('PUinfo', id=Shop.id)
     return render(request, "CreateShop.html")
 
 
@@ -194,7 +194,7 @@ def Afrimartapprovedvendor(request):
 def vendordashboard(request):
     return render(request, "vendorDashboard.html")
 
-def PUvendorinfo(request, id=1):
+def PUvendorinfo(request, id):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
