@@ -18,13 +18,13 @@ class Shop(models.Model):
 
 class Vendor(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE, related_name="my_vendor_profile")
-    Fullname=models.CharField(max_length=50)
-    Whatsapp_no=models.IntegerField()
-    Additional_phone=models.IntegerField()
-    Shop_name=models.CharField(max_length=50)
-    Market_location=models.CharField(max_length=50)
-    Stall_number=models.CharField(max_length=50, blank=True, null=True)
-    Shop_description=models.TextField()
-    Profile_picture=models.ImageField()
+    Fullname=models.CharField(max_length=50, default='fullname')
+    Whatsapp_no=models.IntegerField(default=677777777)
+    Additional_phone=models.IntegerField(default=677777777)
+    Shop_name=models.CharField(max_length=50, default='shopname')
+    Market_location=models.CharField(max_length=50, default='location')
+    Stall_number=models.CharField(max_length=50, blank=True, null=True, default='stall')
+    Shop_description=models.TextField(default='description')
+    Profile_picture=models.ImageField(null=True, blank=True)
 
 # Create your models here.

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfriMart - Cameroon's Online Market</title>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'src/assets/images/afrimart_logo.png' %}">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href=" {% static 'src/assets/bootstrap-icons/bootstrap-icons.css' %}">
+  <!-- Custom CSS -->
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'src/input.css' %}">
+    <link rel="stylesheet" href="{% static 'src/assets/Marketplace.css' %}">
+
+   
+</head>
+<body>
+
+
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    
+  <!-- Location Bar -->
+<div class="bg-[#34D399] py-2 px-4 text-white">
+    <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base">
+      <!-- Location & Contact -->
+      <div class="flex items-center space-x-4 mb-2 sm:mb-0 ">
+        <a href="#" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-geo-alt mr-1"></i>
+          <span>Bamenda-Bambili</span>
+        </a>
+        <a href="tel:+237683558004" class="flex items-center hover:text-accent transition-colors">
+          <i class="bi bi-telephone mr-1"></i>
+          <span>683 558 004</span>
+        </a>
+      </div>
+  
+      <!-- Login/Register Links -->
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'login' %}" class="font-medium hover:text-accent transition-colors">
+          Login
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="{% url 'registration' %}" class="font-medium hover:text-accent transition-colors">
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+  <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[200px] h-[43px] container mx-auto md:hidden block" alt="">
+
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between flex-wra h-16">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="text-2xl font-bold text-primary">
+          <!-- AfriMart -->
+           <img src="{% static 'src/assets/images/afrimart_logo.png' %}" class="w-[150px] hidden md:block" alt="">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 mx-6">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+          <a href="#" class="nav-link active">Marketplace</a>
+          <div class="dropdown relative">
+            <button class="nav-link flex items-center">
+              Vendors <i class="bi bi-chevron-down ml-1 text-xs"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Top Vendors</a>
+              <a href="#" class="dropdown-item">New Sellers</a>
+              <a href="#" class="dropdown-item">Become a Vendor</a>
+            </div>
+          </div>
+          <a href="productUpload.html" class="nav-link">Storage Pools</a>
+          <a href="{% url 'PUinfo' %}" class="nav-link">Our Impact</a>
+        </nav>
+
+        <!-- Search Bar (Always Visible) -->
+        <div class="relative mx-4 flex-1 max-w-xl md:w-full ">
+          <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Search... fresh products..." 
+            class="md:w-full py-2 px-4 pr-10 border w-[150px] border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+          <i class="bi bi-search absolute right-3 top-2.5 text-gray-400 hidden md:block"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Action Icons (Always Visible) -->
+        <div class="flex items-center space-x-4">
+          <button id="compareBtn" class="nav-icon">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+          <button id="" class="nav-icon relative">
+            <a href="">
+              <i class="bi bi-heart"></i>
+
+            </a>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="" class="nav-icon relative">
+            <i class="bi bi-cart3"></i>
+            <span class="nav-badge">0</span>
+          </button>
+          <button id="" class="nav-icon">
+            <a href="{% url 'dashboard' %}">
+              <i class="bi bi-person"></i>
+            </a>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-dark ml-4">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- Mobile Menu (Slides from right) -->
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link">Home</a>
+        <a href="#" class="mobile-nav-link">Marketplace</a>
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link flex justify-between items-center">
+            Vendors <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="mobile-dropdown-menu">
+            <a href="#" class="mobile-dropdown-item">Top Vendors</a>
+            <a href="#" class="mobile-dropdown-item">New Sellers</a>
+            <a href="#" class="mobile-dropdown-item">Become a Vendor</a>
+          </div>
+        </div>
+        <a href="#" class="mobile-nav-link">Storage Pools</a>
+        <a href="#" class="mobile-nav-link">Our Impact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+  <!-- Hero Section -->
+<!-- Category Navigation (unchanged, as you liked it) -->
+<nav class="category-nav">
+  <div class="category-container">
+    <div class="category-scroller">
+      <a href="#" class="category-link active">Fashion and wearables</a>
+      <a href="#" class="category-link">Beauty and personal care</a>
+      <a href="#" class="category-link">Electronics</a>
+      <a href="#" class="category-link">Fabrics and Materials</a>
+      <a href="#" class="category-link">Digital & Printing Services</a>
+      <a href="#" class="category-link">Footwear</a>
+      <a href="#" class="category-link">Home & Living</a>
+      <a href="#" class="category-link">Electronics</a>
+      <a href="#" class="category-link">Fashion</a>
+      <a href="#" class="category-link">Kitchenware</a>
+      <a href="#" class="category-link">Special Offers</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Product Listing Section -->
+<main class="container mx-auto px-4 py-8">
+  <!-- Breadcrumb -->
+  <div class="text-sm text-gray-600 mb-4 flex items-center flex-wrap">
+    <a href="#" class="hover:text-primary">Home</a>
+    <i class="bi bi-chevron-right mx-2 text-xs"></i>
+    <span class="text-dark font-medium">New Releases</span>
+  </div>
+  
+  <!-- Page Header -->
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-bold text-dark mb-2">New Releases</h1>
+      <p class="text-gray-600">Discover the latest products from local Bamenda vendors</p>
+    </div>
+    <div class="mt-4 md:mt-0">
+      <span class="text-gray-600">1,049 Results</span>
+    </div>
+  </div>
+  
+  <div class="flex flex-col lg:flex-row gap-6">
+    <!-- Mobile Filter Overlay -->
+    <div id="mobileFilterOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
+      <div class="absolute right-0 top-0 h-full w-4/5 bg-white overflow-y-auto transform transition-transform duration-300 translate-x-full">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="font-semibold text-lg">Filters</h3>
+          <button id="closeMobileFilter" class="text-gray-500 hover:text-dark">
+            <i class="bi bi-x-lg text-xl"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <!-- Filter content will be inserted here from desktop filters -->
+        </div>
+        <div class="p-4 border-t border-gray-200 flex justify-between">
+          <button class="text-primary font-medium">Reset</button>
+          <button class="bg-primary text-white px-6 py-2 rounded hover:bg-emerald-600">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Section - Desktop -->
+    <aside class="hidden lg:block w-72 flex-shrink-0">
+      <div class="bg-white rounded-lg shadow p-5 sticky top-24">
+        <!-- Filter Groups with Accordion Functionality -->
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Categories</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-2">
+            <div class="filter-option active flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>All Categories</span>
+              <span class="text-gray-500 text-sm">1,049</span>
+            </div>
+            <div class="filter-option flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>Shoes</span>
+              <span class="text-gray-500 text-sm">156</span>
+            </div>
+            <div class="filter-option flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>Tops and T-Shirts</span>
+              <span class="text-gray-500 text-sm">89</span>
+            </div>
+            <div class="filter-option flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>Shorts</span>
+              <span class="text-gray-500 text-sm">72</span>
+            </div>
+            <div class="filter-option flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>Hoodies and Pullovers</span>
+              <span class="text-gray-500 text-sm">64</span>
+            </div>
+            <div class="filter-option flex items-center justify-between p-2 rounded cursor-pointer">
+              <span>Jackets & Vests</span>
+              <span class="text-gray-500 text-sm">47</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Pick Up Today</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-2">
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="pickupToday" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="pickupToday">Available for pickup</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Gender</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-2">
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="men" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="men">Men</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="women" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="women">Women</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="kids" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="kids">Kids</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Kids Age</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-2">
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="age0-3" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="age0-3">Babies & Toddlers (0-3 yrs)</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="age3-7" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="age3-7">Little Kids (3-7 yrs)</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="age7-15" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="age7-15">Big Kids (7-15 yrs)</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Vendor Type</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-2">
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="verified" class="mr-2 rounded text-primary focus:ring-primary" checked>
+              <label for="verified">Verified Vendors</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="local" class="mr-2 rounded text-primary focus:ring-primary" checked>
+              <label for="local">Local Artisans</label>
+            </div>
+            <div class="filter-option flex items-center p-2 rounded cursor-pointer">
+              <input type="checkbox" id="moderated" class="mr-2 rounded text-primary focus:ring-primary">
+              <label for="moderated">Moderated Vendors</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group mb-6">
+          <button class="filter-group-header flex justify-between items-center w-full text-left">
+            <h3 class="font-semibold text-dark">Price Range</h3>
+            <i class="bi bi-chevron-down text-xs transition-transform"></i>
+          </button>
+          <div class="filter-group-content mt-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">5,000 FCFA</span>
+              <span class="text-sm text-gray-600">50,000 FCFA</span>
+            </div>
+            <input type="range" min="5000" max="50000" value="25000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between">
+              <button class="text-xs text-gray-600 hover:text-primary">Reset</button>
+              <button class="text-xs bg-primary text-white px-3 py-1 rounded hover:bg-emerald-500">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <div class="flex-1">
+      <!-- Sort and Filter Bar -->
+      <div class="bg-white rounded-lg shadow p-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <div class="flex items-center mb-3 sm:mb-0">
+          <button id="filterToggle" class="flex items-center text-dark mr-4">
+            <i class="bi bi-funnel-fill mr-2"></i>
+            <span>Filters</span>
+          </button>
+          <div class="text-sm text-gray-600">
+            Showing <span class="font-medium text-dark">12</span> of <span class="font-medium text-dark">1,049</span> products
+          </div>
+        </div>
+        <div class="flex items-center">
+          <label for="sort" class="text-sm text-gray-600 mr-2">Sort by:</label>
+          <select id="sort" class="border border-gray-300 rounded px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+            <option>Featured</option>
+            <option>Newest Arrivals</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Verified Vendors</option>
+            <option>Moderated Shops</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Products Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Product Card 1 -->
+        <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Chelsea FC Jersey" class="product-image w-full h-48 object-cover">
+            <span class="product-badge">Just In</span>
+            <span class="vendor-badge">Bamenda Sports</span>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium text-dark text-sm">Chelsea FC 2025/26 Stadium Away</h3>
+              <span class="verified-badge text-xs flex items-center">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mb-2">Big Kids: Nike Dri-FIT Soccer Replica Jersey</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-primary font-bold">80,000 FCFA</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500"><i class="bi bi-geo-alt mr-1"></i> Bamenda</span>
+              <span class="text-green-600"><i class="bi bi-check-circle mr-1"></i> Pickup today</span>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                View
+              </button>
+              <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                <i class="bi bi-whatsapp mr-1"></i> Chat
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 2 -->
+        <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1520256864255-e5d77a59e3e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="PSG Short" class="product-image w-full h-48 object-cover">
+            <span class="product-badge">Just In</span>
+            <span class="vendor-badge">Bambili Sports</span>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium text-dark text-sm">Paris Saint-Germain 2025/26 Stadium Home</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-2">Big Kids: Nike Dri-FIT Soccer Replica Short</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-primary font-bold">55,000 FCFA</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500"><i class="bi bi-geo-alt mr-1"></i> Bambili</span>
+              <span class="text-green-600"><i class="bi bi-check-circle mr-1"></i> Pickup today</span>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                View
+              </button>
+              <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                <i class="bi bi-whatsapp mr-1"></i> Chat
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 3 -->
+        <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Soccer Jacket" class="product-image w-full h-48 object-cover">
+            <span class="product-badge">Just In</span>
+            <span class="vendor-badge">Mankon Sports</span>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium text-dark text-sm">Paris Saint-Germain Strike Home</h3>
+              <span class="verified-badge text-xs flex items-center">
+                <i class="bi bi-check-circle-fill mr-1"></i>
+                Verified
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mb-2">Men's Nike Dri-FIT Soccer Anthem Jacket</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-primary font-bold">150,000 FCFA</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500"><i class="bi bi-geo-alt mr-1"></i> Mankon</span>
+              <span class="text-gray-500"><i class="bi bi-clock mr-1"></i> Pickup tomorrow</span>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                View
+              </button>
+              <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                <i class="bi bi-whatsapp mr-1"></i> Chat
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 4 -->
+        <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551958214-ac54a5c6a73d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ambrose Jacket" class="product-image w-full h-48 object-cover">
+            <span class="product-badge">Just In</span>
+            <span class="vendor-badge">Nkwen Sports</span>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium text-dark text-sm">Ambrose Madrid Strike</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-2">Men's Nike Dri-FIT Soccer Anthem Jacket</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-primary font-bold">150,000 FCFA</span>
+              </div>
+            </div>
+            <div class="mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500"><i class="bi bi-geo-alt mr-1"></i> Nkwen</span>
+              <span class="text-gray-500"><i class="bi bi-clock mr-1"></i> Pickup tomorrow</span>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                View
+              </button>
+              <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                <i class="bi bi-whatsapp mr-1"></i> Chat
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="mt-8 flex justify-center">
+        <nav class="flex items-center space-x-2">
+          <button class="p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="w-10 h-10 rounded-full bg-primary text-white font-medium">1</button>
+          <button class="w-10 h-10 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">2</button>
+          <button class="w-10 h-10 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">3</button>
+          <span class="px-2">...</span>
+          <button class="w-10 h-10 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">10</button>
+          <button class="p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Featured Products Carousel -->
+<section class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl md:text-2xl font-bold text-dark">What others are interested in right now</h2>
+    <div class="flex space-x-2">
+      <button class="carousel-prev p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="carousel-next p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="relative">
+    <div class="carousel-container overflow-hidden">
+      <div class="carousel-track flex transition-transform duration-300">
+        <!-- Product 1 -->
+        <div class="carousel-slide px-2 w-1/2 sm:w-1/3 md:w-1/4">
+          <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smartphone" class="product-image w-full h-48 object-cover">
+              <span class="vendor-badge">Tech Hub Bamenda</span>
+            </div>
+            <div class="p-3">
+              <div class="flex justify-between items-start mb-1">
+                <h3 class="font-medium text-dark text-sm">Samsung Galaxy S23</h3>
+                <span class="verified-badge text-xs flex items-center">
+                  <i class="bi bi-check-circle-fill mr-1"></i>
+                  Verified
+                </span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">128GB, 8GB RAM - Brand New</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-primary font-bold">450,000 FCFA</span>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                  View
+                </button>
+                <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                  <i class="bi bi-whatsapp mr-1"></i> Chat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="carousel-slide px-2 w-1/2 sm:w-1/3 md:w-1/4">
+          <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Blender" class="product-image w-full h-48 object-cover">
+              <span class="vendor-badge">Home Essentials</span>
+            </div>
+            <div class="p-3">
+              <div class="flex justify-between items-start mb-1">
+                <h3 class="font-medium text-dark text-sm">Powerful Blender</h3>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">1500W with 4 speed settings</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-primary font-bold">75,000 FCFA</span>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                  View
+                </button>
+                <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                  <i class="bi bi-whatsapp mr-1"></i> Chat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="carousel-slide px-2 w-1/2 sm:w-1/3 md:w-1/4">
+          <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="African Dress" class="product-image w-full h-48 object-cover">
+              <span class="vendor-badge">Mankon Designs</span>
+            </div>
+            <div class="p-3">
+              <div class="flex justify-between items-start mb-1">
+                <h3 class="font-medium text-dark text-sm">African Print Dress</h3>
+                <span class="verified-badge text-xs flex items-center">
+                  <i class="bi bi-check-circle-fill mr-1"></i>
+                  Verified
+                </span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Handmade with local fabric</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-primary font-bold">35,000 FCFA</span>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                  View
+                </button>
+                <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                  <i class="bi bi-whatsapp mr-1"></i> Chat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="carousel-slide px-2 w-1/2 sm:w-1/3 md:w-1/4">
+          <div class="product-card bg-white rounded-lg shadow-card overflow-hidden">
+            <div class="relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Skincare Set" class="product-image w-full h-48 object-cover">
+              <span class="vendor-badge">Beauty Haven</span>
+            </div>
+            <div class="p-3">
+              <div class="flex justify-between items-start mb-1">
+                <h3 class="font-medium text-dark text-sm">Organic Skincare Set</h3>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Complete facial care routine</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-primary font-bold">28,000 FCFA</span>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button class="btn-view text-xs border border-primary text-primary py-1 rounded hover:bg-primary hover:text-white transition">
+                  View
+                </button>
+                <button class="btn-whatsapp text-xs bg-green-500 text-white py-1 rounded hover:bg-green-600 transition flex items-center justify-center">
+                  <i class="bi bi-whatsapp mr-1"></i> Chat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JavaScript for Functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile filter toggle
+  const filterToggle = document.getElementById('filterToggle');
+  const mobileFilterOverlay = document.getElementById('mobileFilterOverlay');
+  const closeMobileFilter = document.getElementById('closeMobileFilter');
+  
+  filterToggle.addEventListener('click', function() {
+    if (window.innerWidth < 1024) { // Only for mobile
+      // Clone desktop filters to mobile overlay
+      const desktopFilters = document.querySelector('.bg-white.rounded-lg.shadow').cloneNode(true);
+      const mobileFilterContent = mobileFilterOverlay.querySelector('.p-4');
+      mobileFilterContent.innerHTML = '';
+      mobileFilterContent.appendChild(desktopFilters);
+      
+      // Initialize accordions in mobile filters
+      initFilterAccordions(mobileFilterContent);
+      
+      // Show mobile overlay
+      mobileFilterOverlay.classList.remove('hidden');
+      setTimeout(() => {
+        mobileFilterOverlay.querySelector('.absolute').classList.remove('translate-x-full');
+      }, 10);
+    }
+  });
+  
+  closeMobileFilter.addEventListener('click', function() {
+    mobileFilterOverlay.querySelector('.absolute').classList.add('translate-x-full');
+    setTimeout(() => {
+      mobileFilterOverlay.classList.add('hidden');
+    }, 300);
+  });
+  
+  // Filter accordion functionality
+  function initFilterAccordions(container) {
+    const filterGroups = container.querySelectorAll('.filter-group');
+    
+    filterGroups.forEach(group => {
+      const header = group.querySelector('.filter-group-header');
+      const content = group.querySelector('.filter-group-content');
+      const icon = header.querySelector('i');
+      
+      // Initialize closed
+      content.style.display = 'none';
+      icon.classList.add('-rotate-90');
+      
+      header.addEventListener('click', function() {
+        if (content.style.display === 'none') {
+          content.style.display = 'block';
+          icon.classList.remove('-rotate-90');
+        } else {
+          content.style.display = 'none';
+          icon.classList.add('-rotate-90');
+        }
+      });
+    });
+  }
+  
+  // Initialize desktop filter accordions
+  initFilterAccordions(document);
+  
+  // Carousel functionality
+  const carouselTrack = document.querySelector('.carousel-track');
+  const carouselSlides = document.querySelectorAll('.carousel-slide');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+  
+  let currentIndex = 0;
+  const slideWidth = carouselSlides[0].getBoundingClientRect().width;
+  
+  function updateCarousel() {
+    carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+  }
+  
+  nextBtn.addEventListener('click', function() {
+    if (currentIndex < carouselSlides.length - 1) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+  
+  prevBtn.addEventListener('click', function() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+  
+  // Category navigation scroll behavior
+  const categoryLinks = document.querySelectorAll('.category-link');
+  const categoryScroller = document.querySelector('.category-scroller');
+  
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Remove active class from all links
+      categoryLinks.forEach(l => l.classList.remove('active'));
+      
+      // Add active class to clicked link
+      this.classList.add('active');
+      
+      // Center the active link in the scroller
+      const scrollerWidth = categoryScroller.offsetWidth;
+      const linkPosition = this.offsetLeft;
+      const linkWidth = this.offsetWidth;
+      
+      categoryScroller.scrollTo({
+        left: linkPosition - (scrollerWidth / 2) + (linkWidth / 2),
+        behavior: 'smooth'
+      });
+    });
+  });
+});
+</script>
+
+
+  <script src="{% static 'src/assets/script.js' %}"></script>
+</body>
+</html>

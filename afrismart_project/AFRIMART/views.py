@@ -199,8 +199,8 @@ def PUvendorinfo(request, id=1):
         return redirect('login')
     else:
         try:
-            vendor = Vendor.objects.get(id=id)
-            if vendor.user!=request.user:
+            vendor_shop = Shop.objects.get(id=id)
+            if vendor_shop.user!=request.user:
                 return HttpResponse('You are not authorised to be on this page')
             else:
                 is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
@@ -224,4 +224,5 @@ def PUvendorinfo(request, id=1):
         except:
             return HttpResponse('This page does not exist')
 
-    # return render(request, "PUvendorInfo.html")
+def marketplace(request):
+    return render(request, "Marketplace.html")

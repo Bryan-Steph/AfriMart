@@ -17,6 +17,7 @@ urlpatterns = [
     path("createshop/", views.Afrimartcreateshop, name="createshop"),
     path("approvedvendor/",views.Afrimartapprovedvendor, name="approvedvendor"),
     path('vendordashboard/',views.vendordashboard, name="dashboard"),
-    path('PUvendorinfo/<int:id>/', views.PUvendorinfo, name="PUinfo")
+    path('PUvendorinfo/<int:id>/', views.PUvendorinfo, name="PUinfo"),
+    path("market/", views.marketplace, name="market")
     
 ]
