@@ -1,10 +1,10 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.4.17"
-  }
-}
-"scripts": {
+  },
+  "scripts": {
   "dev": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
   "build": "tailwindcss -i ./src/input.css -o ./src/output.css --minify"
 }
-afrismart_project/AFRIMART/static/src/input.css
+
+}

@@ -323,6 +323,96 @@
       }
     });
   
+
+  // ===== FIXED IMAGE UPLOAD FUNCTIONALITY =====
+  const profileUpload = document.getElementById('profileUpload');
+  const profilePreview = document.getElementById('profilePreview');
+  const uploadText = document.querySelector('.bi-camera'); // Camera icon
+
+  profileUpload.addEventListener('change', function(e) {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        // Show the preview image
+        profilePreview.src = e.target.result;
+        profilePreview.classList.remove('hidden');
+        
+        // Hide the camera icon
+        uploadText.classList.add('hidden');
+        
+        // Add border to indicate success
+        profilePreview.parentElement.classList.remove('border-dashed', 'border-gray-300');
+        profilePreview.parentElement.classList.add('border-solid', 'border-emerald-400');
+      };
+      
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  });
+
+
+  
+  // Insert it in the header (before the logo)
+  const header = document.querySelector('header .container');
+  header.insertBefore(homeButton, header.firstChild);
+
+  // Character Counter (existing code)
+  const textarea = document.getElementById('shopDescription');
+  const charCount = document.getElementById('charCount');
+
+  textarea.addEventListener('input', function() {
+    charCount.textContent = this.value.length;
+  });
+
+  // Numeric Input Validation (existing code)
+  document.querySelectorAll('input[type="tel"]').forEach(input => {
+    input.addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  });
+
+  // Form Submission (existing code remains the same)
+  const vendorForm = document.getElementById('vendorForm');
+  const saveBtn = document.getElementById('saveBtn');
+  const continueBtn = document.getElementById('continueBtn');
+
+  function handleSubmit(action) {
+    if (!vendorForm.checkValidity()) {
+      vendorForm.reportValidity();
+      return;
+    }
+
+    const btn = action === 'save' ? saveBtn : continueBtn;
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      
+      if (action === 'continue') {
+        window.location.href = 'categories.html';
+      } else {
+        alert('Information saved successfully!');
+      }
+    }, 1500);
+  }
+
+  saveBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    handleSubmit('save');
+  });
+
+  continueBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    handleSubmit('continue');
+  });
+
+  vendorForm.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+    }
+  });
   </script>
 
   <script src="script.js"></script>
