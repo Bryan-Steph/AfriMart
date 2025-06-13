@@ -261,7 +261,7 @@
           <button type="button" id="saveBtn" class="px-6 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors bg-emerald-500" onclick="saveForm(event)">
             Save 
           </button>
-          <button type="submit" id="continueBtn" class="px-6 py-2.5  hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center" disabled onclick="event.preventDefault() windows.location.href=`{% url 'category' shopid %}`">
+          <button type="submit" id="continueBtn" class="px-6 py-2.5  hover:bg-emerald-600 text-black rounded-lg transition-colors flex items-center" disabled onclick="event.preventDefault(); window.location.href=`{% url 'category' shopid %}`">
             Continue <i class="bi bi-arrow-right ml-2"></i>
           </button>
         </div>
@@ -426,17 +426,32 @@
         alert("Fill the form correctly");
         return 0;
       }
-      var content={
-        "fullName": document.getElementById("fullName").value,
-        "whatsapp": document.getElementById("whatsapp").value,
-        "phone": document.getElementById("phone").value,
-        "shopName": document.getElementById("shopName").value,
-        "marketLocation": document.getElementById("marketLocation").value,
-        "stallNumber": document.getElementById("stallNumber").value,
-        "shopDescription": document.getElementById("shopDescription").value,
-        "profileImage": document.getElementById("profileUpload").files[0]
-      }
-      ajaxsendform(content);
+      
+      let formdata= new FormData(document.getElementById('vendorForm'));
+      //formdata.append("fullName", document.getElementById("fullName").value);
+      //formdata.append("whatsapp", document.getElementById("whatsapp").value);
+      //formdata.append("phone", document.getElementById("phone").value);
+      //formdata.append("shopName", document.getElementById("shopName").value);
+      //formdata.append("marketLocation", document.getElementById("marketLocation").value);
+      //formdata.append("stallNumber", document.getElementById("stallNumber").value);
+      //formdata.append("shopDescription", document.getElementById("shopDescription").value);
+      //formdata.append("profileImage",document.getElementById("profileUpload").files[0]);
+      //console.log(window.location.href);
+      $.ajax(
+        {type:'POST',
+        url:window.location.href,
+        data:formdata,
+        processData:false,
+        contentType:false,
+        success:(data) =>{
+            console.log(data);
+        },
+        error:(error) =>{
+            console.error("Error saving form:", error);
+        }
+        
+    }
+    );
       document.getElementById('saveBtn').disabled=true;
       document.getElementById('saveBtn').classList.remove('bg-emerald-500')
       document.getElementById('continueBtn').disabled=false;

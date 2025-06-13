@@ -26,5 +26,6 @@ class Vendor(models.Model):
     Stall_number=models.CharField(max_length=50, blank=True, null=True, default='stall')
     Shop_description=models.TextField(default='description')
     Profile_picture=models.ImageField(null=True, blank=True, upload_to="VendorImage")
+    Category=models.JSONField(default=dict)
 
 # Create your models here.

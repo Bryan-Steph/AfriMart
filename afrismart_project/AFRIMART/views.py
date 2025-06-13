@@ -200,29 +200,27 @@ def PUvendorinfo(request, id):
         return redirect('login')
     else:
         try:
+
             vendor_shop = Shop.objects.get(id=id)
             if vendor_shop.user!=request.user:
                 return HttpResponse('You are not authorised to be on this page')
             else:
-                is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-                if is_ajax:
-                    if request.method == 'POST':
-                        data = json.load(request).get('content')  # collecting message content
-                        print(data)
-                        vendor = Vendor.objects.create(
-                            user=request.user,
-                            Fullname=data['fullName'],
-                            Whatsapp_no=data['whatsapp'],
-                            Additional_phone=data['phone'],
-                            Shop_name=data['shopName'],
-                            Market_location=data['marketLocation'],
-                            Stall_number=data['stallNumber'],
-                            Shop_description=data['shopDescription'],
-                            Profile_picture=data['profileImage']
-                        )
-                        print(vendor)
-                        print(vendor.values())
-                        return JsonResponse({'done': 'done'})
+                # print(Vendor.objects.all())
+                if request.method == 'POST':
+                    print(request.POST)
+                    vendor = Vendor.objects.create(
+                        user=request.user,
+                        Fullname=request.POST['fullName'],
+                        Whatsapp_no=request.POST['whatsapp'],
+                        Additional_phone=request.POST['phone'],
+                        Shop_name=request.POST['shopName'],
+                        Market_location=request.POST['marketLocation'],
+                        Stall_number=request.POST['stallNumber'],
+                        Shop_description=request.POST['shopDescription'],
+                        Profile_picture=request.FILES['profileImage']
+                    )
+                    print("done")
+                    return JsonResponse({'done': 'done'})
                 return render(request, "PUvendorInfo.html",{"shopid":id})
         except:
             return HttpResponse('This page does not exist')
@@ -244,6 +242,10 @@ def productCategory(request, id):
                     if request.method == 'POST':
                         data = json.load(request).get('content')  # collecting message content
                         print(data)
+                        vendor=Vendor.objects.get(user=request.user)
+                        vendor.Category=data
+                        vendor.save()
+
 
                 return render(request, "PUCategory.html")
         except:
@@ -255,3 +257,4 @@ def topvendors(request):
 
 def afrimartimpact(request):
     return render(request, "OurImpact.html")
+

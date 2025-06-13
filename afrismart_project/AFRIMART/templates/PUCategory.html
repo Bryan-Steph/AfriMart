@@ -345,7 +345,7 @@
 
     <div class="mt-10 text-center">
       <button id="continueBtn" class="px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium flex items-center gap-2 mx-auto" disabled>
-        <span>Continue to Products</span>
+        <span onclick="send()">Continue to Products</span>
         <i class="bi bi-arrow-right"></i>
       </button>
     </div>
@@ -358,8 +358,35 @@
       </p>
     </div>
   </footer>
-
+  <script src="{% static 'src/assets/jquery 3.js' %}"></script>
+  <script src="{% static 'src/assets/ajaxsubmition.js' %}"></script>
   <script>
+
+    //adding categories for submisssion
+    let category_dict={}
+
+      function togglecathegory(event){
+        if (event.target.checked){
+          console.log("we");
+          var parent=event.target.getAttribute('data-parentcategory')
+          try{
+            category_dict[parent].push(event.target.value);
+          }
+          catch{
+            category_dict[parent]=[event.target.value];
+          }
+          
+        }
+        else{
+          category_dict[parent].remove(event.target.value);
+        }
+        console.log(category_dict);
+      }
+      
+
+      function send(){
+        ajaxsendform(category_dict)
+      }
       document.addEventListener('DOMContentLoaded', function() {
   // Store dropdown functionality
   const dropdownButton = document.getElementById('store-dropdown-button');
@@ -623,8 +650,7 @@
       let slidesCount = 0;
       let currentTab = 'fashion';
       let categories = categoryData.fashion;
-      let category_dict={}
-
+      
       // Initialize carousel
       function initCarousel() {
         renderCategories();
@@ -634,23 +660,7 @@
         setupEventListeners();
         updateSelectionUI();
       }
-      //adding categories for submisssion
-      function togllecathegory(event){
-        if (event.target.checked){
-          var parent=event.target.getAttribute('data-parentcategory')
-          try{
-            category_dict[parent].push(event.target.value);
-          }
-          catch{
-            category_dict[parent]=[event.target.value];
-          }
-          
-        }
-        else{
-          category_dict[parent].remove(event.target.value);
-        }
-        console.log(category_dict);
-      }
+      
 
 
 
@@ -675,9 +685,9 @@
                           type="checkbox" 
                           class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
                           data-category="${category.id}"
-                          value="${sub}"
-                          data-parentcategory="${category.name}"
-                          onchange="togllecathegory(${event})"
+                          value="${sub.replace("'","")}"
+                          data-parentcategory="${category.name.replace("'","")}"
+                          onchange="togglecathegory(event)"
 
                         >
                         <span>${sub}</span>
