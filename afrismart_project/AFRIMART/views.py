@@ -264,15 +264,16 @@ def publishproduct(request):
 
 def vendorproducts(request, id):
     if request.method=='POST':
-        Products.objects.create(
-            user=request.user,
-            Title= ,
-            Description=,
-            Category=,
-            Price=,
-            Original_price=,
-            Product_condition=,
-
-
-        )
+        # Products.objects.create(
+        #     user=request.user,
+        #     Title= ,
+        #     Description=,
+        #     Category=,
+        #     Price=,
+        #     Original_price=,
+        #     Product_condition=,
+        #
+        #
+        # )
+        pass
     return render(request, "PUproducts.html")
