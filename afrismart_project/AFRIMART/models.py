@@ -28,4 +28,23 @@ class Vendor(models.Model):
     Profile_picture=models.ImageField(null=True, blank=True, upload_to="VendorImage")
     Category=models.JSONField(default=dict)
 
+class Products(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE, related_name="myproducts")
+    Title=models.CharField(max_length=50)
+    Description=models.TextField()
+    Category= models.CharField(max_length=50)
+    Price=models.DecimalField(decimal_places=2, max_digits=20)
+    Original_price=models.DecimalField(decimal_places=2, max_digits=20)
+    Product_condition=models.CharField(max_length=50)
+    Variants=models.JSONField()
+    Inventory= models.JSONField()
+    Status=models.CharField(max_length=50)
+    Visibility=models.CharField(max_length=50)
+    Tags=models.CharField(max_length=50)
+    Collections=models.CharField(max_length=50)
+    Type=models.CharField(max_length=50)
+
+class ProductImages(models.Model):
+    product=models.ForeignKey(Products, on_delete=models.CASCADE, related_name="images")
+    Image=models.ImageField(upload_to='products')
 # Create your models here.

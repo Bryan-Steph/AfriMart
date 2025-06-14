@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, reverse
 from django.contrib.auth.models import User
-from .models import Profile, Shop, Vendor
+from .models import Profile, Shop, Vendor, Products, ProductImages
 from django.utils.timezone import now
 from django.contrib.auth import login, logout, authenticate
 from .functions import generate_email_comfirmation_code
@@ -245,9 +245,9 @@ def productCategory(request, id):
                         vendor=Vendor.objects.get(user=request.user)
                         vendor.Category=data
                         vendor.save()
+                        return JsonResponse({'done':'done'})
 
-
-                return render(request, "PUCategory.html")
+                return render(request, "PUCategory.html", {"shopid":id})
         except:
             return HttpResponse('This page does not exist')
 
@@ -258,3 +258,21 @@ def topvendors(request):
 def afrimartimpact(request):
     return render(request, "OurImpact.html")
 
+
+def publishproduct(request):
+    return render(request, "PUpublish.html")
+
+def vendorproducts(request, id):
+    if request.method=='POST':
+        Products.objects.create(
+            user=request.user,
+            Title= ,
+            Description=,
+            Category=,
+            Price=,
+            Original_price=,
+            Product_condition=,
+
+
+        )
+    return render(request, "PUproducts.html")

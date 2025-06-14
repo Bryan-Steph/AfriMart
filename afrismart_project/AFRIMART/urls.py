@@ -21,6 +21,8 @@ urlpatterns = [
     path("market/", views.marketplace, name="market"),
     path("PUCathegory/<int:id>/", views.productCategory, name="category"),
     path("Topvendors/", views.topvendors, name="topvendors"),
-    path("afrimart_impact/",views.afrimartimpact, name="impact")
+    path("afrimart_impact/",views.afrimartimpact, name="impact"),
+    path("publishproduct/", views.publishproduct, name="publisher"),
+    path("PUproducts/<int:id>", views.vendorproducts, name="PUproducts")
     
 ]

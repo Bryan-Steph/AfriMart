@@ -366,9 +366,10 @@
     let category_dict={}
 
       function togglecathegory(event){
+        var parent=event.target.getAttribute('data-parentcategory');
         if (event.target.checked){
           console.log("we");
-          var parent=event.target.getAttribute('data-parentcategory')
+          
           try{
             category_dict[parent].push(event.target.value);
           }
@@ -378,14 +379,15 @@
           
         }
         else{
-          category_dict[parent].remove(event.target.value);
+          category_dict[parent]=category_dict[parent].filter(item=>item!==event.target.value);
         }
         console.log(category_dict);
       }
       
 
       function send(){
-        ajaxsendform(category_dict)
+        ajaxsendform(category_dict);
+        window.location.href="{% url 'PUproducts' shopid %}"
       }
       document.addEventListener('DOMContentLoaded', function() {
   // Store dropdown functionality
